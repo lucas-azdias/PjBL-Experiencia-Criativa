@@ -1,0 +1,98 @@
+{% extends "template.html" %}
+
+{% block head %}
+<script defer>
+    async function submitCadastroUser() {
+        var username = document.getElementById("username");
+        var password = document.getElementById("password");
+        if (username.value != "" && password.value != "") {
+            if (password.value == document.getElementById("confirm_password").value) {
+                response = await fetch("get_usernames", {
+                    method: "POST",
+                    body: {}
+                });
+
+                var usernames = JSON.parse(await response.text());
+
+                if (!usernames.includes(username.value)) {
+                    var dataForm = new FormData(document.getElementById("form"));
+
+                    response = await fetch("add_user", {
+                        method: "POST",
+                        body: dataForm
+                    });
+
+                    window.location.href = await response.text();
+                } else {
+                    console.log("Usuário já cadastrado.")
+                }
+            } else {
+                console.log("Senhas não coincidem.")
+            }
+        } else {
+            console.log("Valores inválidos.")
+        }
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-5 justify-content-center">
+        <div class="col-md-auto">
+            <div id="users_manager" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
+                <div class="row my-4">
+                    <div class="col mx-4">
+                        <h3>Gerenciador de usuários</h3>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col mx-4">
+                        {% if usernames|length > 0 %}
+                            <ul>
+                            {% for username in usernames %}
+                                <li>{{ username }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span>Não há usuários cadastrados.</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <form id="form" method="POST" class="mb-0 justify-content-center">
+                    <div class="row my-3">
+                        <div class="col mx-4">
+                            <label for="username" class="form-label">Nome de usuário</label>
+                            <input type="text" id="username" name="username" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col mx-4">
+                            <label for="password" class="form-label">Senha de acesso</label>
+                            <input type="password" id="password" name="password" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col mx-4">
+                            <label for="password" class="form-label">Confirmar senha de acesso</label>
+                            <input type="password" id="confirm_password" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row my-4 justify-content-center">
+                        <div>
+                            <div class="col mx-4">
+                                <button type="button" class="btn btn-primary" style="width: 150px;" onclick="submitCadastroUser()">Cadastrar usuário</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-auto">
+            <span><a href="/">Voltar ao início</a></span>
+        </div>
+    </div>
+</div>
+{% endblock %}
