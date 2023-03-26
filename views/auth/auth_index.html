@@ -4,5 +4,21 @@
 {% endblock %}
 
 {% block content %}
+<div id="auth">
+    <form method="POST">
+        <div>
+            <label for="username">Nome de usuário</label>
+            <input type="text" id="username" name="username">
+        </div>
+        <div>
+            <label for="password">Senha de acesso</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div>
+            <button type="button">Entrar</button>
+        </div>
+    </form>
+</div>
 
+<p><a href="/">Voltar ao início</a></p>
 {% endblock %}
