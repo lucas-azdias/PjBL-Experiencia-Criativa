@@ -5,7 +5,8 @@
     async function submitCadastroUser() {
         var username = document.getElementById("username");
         var password = document.getElementById("password");
-        if (username.value != "" && password.value != "") {
+        var is_admin = document.getElementById("is_admin");
+        if (username.value != "" && password.value != "" && is_admin.value != "") {
             if (password.value == document.getElementById("confirm_password").value) {
                 response = await fetch("get_usernames", {
                     method: "POST",
@@ -50,8 +51,8 @@
                     <div class="col mx-4">
                         {% if usernames|length > 0 %}
                             <ul>
-                            {% for username in usernames %}
-                                <li>{{ username }}</li>
+                            {% for i in range(usernames|length) %}
+                                <li>{{ usernames[i] }} ({{ "Administrador" if is_admin[i] else "Comum" }})</li>
                             {% endfor %}
                             </ul>
                         {% else %}
@@ -76,6 +77,16 @@
                         <div class="col mx-4">
                             <label for="password" class="form-label">Confirmar senha de acesso</label>
                             <input type="password" id="confirm_password" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col mx-4">
+                            <label for="is_admin" class="form-label">Selecionar permissão</label>
+                            <select id="is_admin" name="is_admin" class="form-control">
+                                <option value="" selected disabled></option>
+                                <option value="0">Comum</option>
+                                <option value="1">Administrador</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row my-4 justify-content-center">

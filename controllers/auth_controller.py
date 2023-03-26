@@ -6,7 +6,7 @@ auth = Blueprint("auth", __name__, template_folder="./views/", static_folder="./
 
 
 # DADOS PUXADOS DO BANCO DE DADOS
-users = [("admin", "12345678"), ("roberto", "gomes"), ("bafome", "jesus")] # (username, password)
+users = [("admin", "12345678", True), ("roberto", "gomes", False), ("bafome", "jesus", True)] # (username, password, is_admin)
 
 
 @auth.route("/")
@@ -29,7 +29,8 @@ def auth_login():
 def auth_users_manager():
     # if isLogged:
     usernames = [user[0] for user in users]
-    return render_template("/auth/auth_users_manager.html", usernames=usernames)
+    is_admin = [user[2] for user in users]
+    return render_template("/auth/auth_users_manager.html", usernames=usernames, is_admin=is_admin)
     # else:
     #     return redirect(url_for("auth.auth_index"))
 
@@ -44,8 +45,9 @@ def auth_get_usernames():
 def auth_add_user():
     username = request.form.get("username")
     password = request.form.get("password")
+    is_admin = int(request.form.get("is_admin"))
 
-    user = (username, password)
+    user = (username, password, True if is_admin == 1 else False)
     if not user in users:
         users.append(user)
     return url_for("auth.auth_users_manager")
