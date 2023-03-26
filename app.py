@@ -8,7 +8,7 @@ app = Flask(__name__, template_folder="./views/", static_folder="./static/")
 app.register_blueprint(auth, url_prefix="/auth")
 
 
-@app.route('/index')
+@app.route('/')
 def index():
     return render_template("index.html")
 
