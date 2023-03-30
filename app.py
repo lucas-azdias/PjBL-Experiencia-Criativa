@@ -12,6 +12,9 @@ app.register_blueprint(data, url_prefix="/data")
 def index():
     return render_template("index.html")
 
+@app.route('/grafico')
+def grafico():
+    return render_template("grafico.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
