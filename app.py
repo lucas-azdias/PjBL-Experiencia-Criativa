@@ -12,13 +12,9 @@ app.register_blueprint(data, url_prefix="/data")
 app.register_blueprint(sensor, url_prefix="/sensor")
 
 
-tags = ["Autenticação de usuário" , "Formulário de registro de dados" , "Sensores"]
-hrefs = ["/auth" , "/data" , "/sensor"]
-
-
 @app.route('/')
 def index():
-    return render_template("index.html" ,hrefs  = hrefs, tags = tags)
+    return render_template("index.html")
 
 
 if __name__ == "__main__":

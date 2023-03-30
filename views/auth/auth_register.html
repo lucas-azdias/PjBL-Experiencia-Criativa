@@ -5,11 +5,10 @@
     async function submitCadastroUser() {
         var username = document.getElementById("username");
         var password = document.getElementById("password");
-        var is_admin = document.getElementById("is_admin");
 
         var username_verifier = document.getElementById("username_verifier");
 
-        if (username.value != "" && password.value != "" && is_admin.value != "") {
+        if (username.value != "" && password.value != "") {
             if (password.value == document.getElementById("confirm_password").value) {
                 username_verifier.value = username.value
                 response = await fetch("verify_username", {
@@ -48,26 +47,13 @@
 <div class="container">
     <div class="row mb-5 justify-content-center">
         <div class="col-md-auto">
-            <div id="users_manager" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
-                <div class="row my-4">
-                    <div class="col mx-4">
-                        <h3>Gerenciador de usuários</h3>
+            <div id="register" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
+                <form id="form" method="POST" class="mx-3 mb-0 justify-content-center">
+                    <div class="row my-4">
+                        <div class="col mx-4">
+                            <h3>Cadastro</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="row my-4">
-                    <div class="col mx-4">
-                        {% if usernames|length > 0 %}
-                            <ul>
-                            {% for i in range(usernames|length) %}
-                                <li>{{ usernames[i] }} ({{ "Administrador" if is_admin[i] else "Comum" }})</li>
-                            {% endfor %}
-                            </ul>
-                        {% else %}
-                            <span>Não há usuários cadastrados.</span>
-                        {% endif %}
-                    </div>
-                </div>
-                <form id="form" method="POST" class="mb-0 justify-content-center">
                     <div class="row my-3">
                         <div class="col mx-4">
                             <label for="username" class="form-label">Nome de usuário</label>
@@ -84,16 +70,6 @@
                         <div class="col mx-4">
                             <label for="password" class="form-label">Confirmar senha de acesso</label>
                             <input type="password" id="confirm_password" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col mx-4">
-                            <label for="is_admin" class="form-label">Selecionar permissão</label>
-                            <select id="is_admin" name="is_admin" class="form-control">
-                                <option value="" selected disabled></option>
-                                <option value="0">Comum</option>
-                                <option value="1">Administrador</option>
-                            </select>
                         </div>
                     </div>
                     <div class="row my-4 justify-content-center">

@@ -15,9 +15,11 @@ isAdmin = False
 @auth.route("/")
 def auth_index():
     global isLogged, isAdmin
-    isLogged = False
-    isAdmin = False
-    return render_template("/auth/auth_index.html")
+    if not isLogged:
+        isAdmin = False
+        return render_template("/auth/auth_index.html")
+    else:
+        return redirect(url_for("index"))
 
 
 @auth.route("/login", methods=["POST"])
@@ -41,6 +43,11 @@ def auth_login():
         isLogged = False
         isAdmin = False
         return url_for("auth.auth_index")
+    
+
+@auth.route("/register")
+def auth_register():
+    return render_template("/auth/auth_register.html")
 
 
 @auth.route("/users_manager")
@@ -55,29 +62,32 @@ def auth_users_manager():
         return redirect(url_for("auth.auth_index"))
 
 
-@auth.route("/get_usernames", methods=["POST"])
-def auth_get_usernames():
-    if isLogged and isAdmin:
-        usernames = [user[0] for user in users]
-        return dumps(usernames)
-    elif isLogged and not isAdmin:
-        return redirect(url_for("index"))
+@auth.route("/verify_username", methods=["POST"])
+def auth_verify_username():
+    username_verifier = request.form.get("username_verifier")
+    response = list()
+    if username_verifier in [user[0] for user in users]:
+        response.append(True)
     else:
-        return redirect(url_for("auth.auth_index"))
+        response.append(False)
+    return response
 
 
 @auth.route("/add_user", methods=["POST"])
 def auth_add_user():
-    if isLogged and isAdmin:
-        username = request.form.get("username")
-        password = request.form.get("password")
-        is_admin = int(request.form.get("is_admin"))
+    username = request.form.get("username")
+    password = request.form.get("password")
 
-        user = (username, password, True if is_admin == 1 else False)
-        if not user in users:
-            users.append(user)
-        return url_for("auth.auth_users_manager")
-    elif isLogged and not isAdmin:
-        return redirect(url_for("index"))
+    if isLogged and isAdmin:
+        is_admin = int(request.form.get("is_admin"))
     else:
-        return redirect(url_for("auth.auth_index"))
+        is_admin = 0
+
+    user = (username, password, True if is_admin == 1 else False)
+    if not user in users:
+        users.append(user)
+    
+    if isLogged and isAdmin:
+        return url_for("auth.auth_users_manager")
+    else:
+        return url_for("index")
