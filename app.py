@@ -7,6 +7,7 @@ app = Flask(__name__, template_folder="./views/", static_folder="./static/")
 
 app.register_blueprint(auth, url_prefix="/auth")
 app.register_blueprint(data, url_prefix="/data")
+
 tags = ["Autenticacao usuario" , "Formulario de resgistro de dados" , "Grafico IOT"]
 hrefs = ["/auth" , "/data" , "/grafico"]
 
