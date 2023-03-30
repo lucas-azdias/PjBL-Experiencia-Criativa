@@ -12,7 +12,7 @@ hrefs = ["/auth" , "/data" , "/grafico"]
 
 @app.route('/')
 def index():
-    return render_template("index.html" , ,hrefs  = hrefs, tags = tags)
+    return render_template("index.html" ,hrefs  = hrefs, tags = tags)
 
 @app.route('/grafico')
 def grafico():
