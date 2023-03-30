@@ -1,45 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Study Object</title>
-    <style>
-        body {background-color: rgb(127, 214, 127);}
+<html>
 
-        h1 { color: #ffffff; font-family: 'Raleway',sans-serif; font-size: 62px; font-weight: 800; line-height: 72px; margin: 0 0 24px; text-align: center; text-transform: uppercase; }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Projeto</title>
+        <style>
 
+            body {
+                background-color: rgb(127, 214, 127);
+            }
 
-        h2 { color: #ffffff; font-family: 'Raleway',sans-serif; font-size: 30px; font-weight: 800; line-height: 36px; margin: 0 0 24px; text-align: center; }
+            h1 {
+                color: #ffffff;
+                font-family: 'Raleway',sans-serif;
+                font-size: 62px;
+                font-weight: 800;
+                line-height: 72px;
+                margin: 0 0 24px;
+                text-align: center;
+                text-transform: uppercase;
+            }
 
+            h2 {
+                color: #ffffff;
+                font-family: 'Raleway',sans-serif;
+                font-size: 30px;
+                font-weight: 800;
+                line-height: 36px;
+                margin: 0 0 24px;
+                text-align: center;
+            }
 
-        p { color: #f8f8f8; font-family: 'Raleway',sans-serif; font-size: 18px; font-weight: 500; line-height: 32px; margin: 0 0 24px;text-align: center; }
+            p {
+                color: #f8f8f8;
+                font-family: 'Raleway',sans-serif;
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 32px;
+                margin: 0 0 24px;
+                text-align: center;
+            }
 
+            a {
+                color: #c8c8c8;
+                text-decoration: underline;
+            }
 
-        a { color: #c8c8c8; text-decoration: underline; }
+            a:hover {
+                color: #1c1c1c;
+                text-decoration: underline;
+            }
 
+            li{
+                text-align: center;
+                font-family: 'Raleway',sans-serif;
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 32px;
+                margin: 0 0 24px;
+                color: #c8c8c8;
+            }
 
-        a:hover { color: #1c1c1c; text-decoration: underline; }
+            li:hover {
+                color: #1c1c1c;
+                text-decoration: underline;
+            }
 
-        li{text-align: center; font-family: 'Raleway',sans-serif; font-size: 18px; font-weight: 500; line-height: 32px; margin: 0 0 24px; color: #c8c8c8;}
-        li:hover { color: #1c1c1c; text-decoration: underline; }
+        </style>
+    </head>
 
-    </style>
-</head>
-<body>
-    <h1>PROJETO DE CONTROLE DE UMIDADE DE PLANTAS</h1>
-    <p> Materiais do projeto: </p>
-    <h2> AES32 </h2>
-    <p> Processamento e Envio de dados</p>
-    <h2> SENSORES </h2>
-    <p> COLETA DE DADOS <p>
-    <h2> GRAFICOS </h2>
-    <p> Mostragem de dados de forma compreensivel </p>
+    <body>
+        <h1>PROJETO DE GERENCIADOR DE JARDINS</h1>
+        <p>Materiais do projeto:</p>
+        <h2>ESP32</h2>
+        <p>Processamento e Envio de dados</p>
+        <h2>SENSORES DE UMIDADE DO SOLO<h2>
+        <h2></h2>
+        <ul>
+            {% for i in range (hrefs| length)%}
+            <li><a href ="{{hrefs[i]}}"> {{tags[i]}} </a></li>
+            {%endfor%}
+        </ul>
+    </body>
 
-        {% for i in range (hrefs| length)%}
-        <li><a href ="{{hrefs[i]}}"> {{tags[i]}} </a></li>
-        {%endfor%}
-    </ul>
-</body>
 </html>

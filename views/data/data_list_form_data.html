@@ -1,0 +1,15 @@
+{% extends "template.html" %}
+
+{% block content %}
+<h2>Listagem de formulário</h2>
+<ul>
+    {% if saved_data|length > 0 %}
+        {% for data in saved_data%}
+            <li>{{data}}</li>
+        {% endfor %}
+    {%else %}
+        <p> Ainda não há dados registrados </p>
+    {%endif%}
+</ul>
+<p>Voltar para <a href="/">página inicial</a>!</p>
+{% endblock content %}
