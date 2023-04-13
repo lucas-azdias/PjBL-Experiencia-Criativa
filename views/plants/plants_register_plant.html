@@ -1,13 +1,11 @@
 {% extends "template.html" %}
 
 {% block content %}
-<h2>Formulário</h2>
-<form action = "get_data" method = "POST">
+<h2>Cadastrar planta</h2>
+<form action = "save_plant" method = "POST">
     <p><input type="text" id="nome_planta" name = "nome_planta" placeholder="Nome da planta"></p>
     <p><input type="text" id="sensor" name = "sensor" placeholder="Sensor utilizado"></p>
     <p><input type="text" id="umidade" name = "umidade" placeholder="Umidade minima"></p>
     <button type="submit">Enviar</button>
 </form>
-<br>
-<p>Voltar para <a href="/"> Página inicial</a></p>
 {% endblock content %}

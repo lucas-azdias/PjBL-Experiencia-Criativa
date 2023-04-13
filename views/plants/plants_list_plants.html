@@ -1,0 +1,16 @@
+{% extends "template.html" %}
+
+{% block content %}
+<h2>Listagem das plantas</h2>
+<ul>
+    {% if saved_plants|length > 0 %}
+        {% for plant in saved_plants %}
+            <li>{{ plant }}</li>
+        {% endfor %}
+    {% else %}
+        <p> Ainda não há plantas registradas </p>
+    {% endif %}
+</ul>
+<br>
+<span><a href="register_plant">Cadastrar plantas</a></span>
+{% endblock content %}
