@@ -45,11 +45,11 @@
     }
 
     async function deleteCard(cardId) {
-        id_card = document.getElementById("id_card").value = cardId
+        document.getElementById("id_card_del").value = cardId
 
         response = await fetch("del_card", {
             method: "POST",
-            body: new FormData(document.getElementById("form_id_card"))
+            body: new FormData(document.getElementById("form_id_card_del"))
         });
 
         window.location.href = await response.text();
@@ -90,7 +90,12 @@
                     <div class="row my-3">
                         <div class="col mx-4">
                             <label for="username" class="form-label">Nome de usuário</label>
-                            <input type="text" id="username" name="username" class="form-control">
+                            <select id="username" name="username" class="form-control">
+                                <option value="" selected disabled></option>
+                                {% for username in usernames  %}
+                                <option value="{{ username }}">{{ username }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                     <div class="row my-3">
@@ -142,7 +147,7 @@
         </div>
     </div>
 </div>
-<form id="form_id_card" method="POST" hidden>
-    <input id="id_card" name="id_card" type="hidden">
+<form id="form_id_card_del" method="POST" hidden>
+    <input id="id_card_del" name="id_card_del" type="hidden">
 </form>
 {% endblock %}

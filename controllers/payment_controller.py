@@ -5,6 +5,8 @@ payment = Blueprint("payment", __name__, template_folder="./views/", static_fold
 
 
 # DADOS PUXADOS DO BANCO DE DADOS
+usernames = ["admin", "roberto", "bafome"]
+last_index = 2
 cards = {"bafome": [(0, "Bafomé", "1956786311112222", "2024-01", "123")], "roberto": [(1, "Roberto Gomes", "1956786311110000", "2024-03", "000"), (2, "Gomes Roberto", "1956786300002222", "2025-08", "999")]}  # "username": ((name_card, id_card, exp_date, cvv), ...)
 
 isLogged = True
@@ -29,10 +31,12 @@ def payment_register_card():
     exp_date = request.form.get("exp_date")
     cvv = request.form.get("cvv")
 
+    global last_index
     if username != "" and name_card != "" and id_card != "" and exp_date != "" and cvv != "":
         if not username in cards.keys():
             cards[username] = list()
-        cards[username].append((name_card, id_card, exp_date, cvv))
+        last_index += 1
+        cards[username].append((last_index, name_card, id_card, exp_date, cvv))
         return url_for("payment.payment_list_data")
     else:
         return url_for("payment.payment_index")
@@ -41,7 +45,7 @@ def payment_register_card():
 @payment.route("/payment_manager")
 def payment_payment_manager():
     if isLogged and isAdmin:
-        return render_template("/payment/payment_payment_manager.html", cards=cards)
+        return render_template("/payment/payment_payment_manager.html", cards=cards, usernames=usernames)
     elif isLogged and not isAdmin:
         return redirect(url_for("index"))
     else:
@@ -56,11 +60,13 @@ def payment_add_card():
     exp_date = request.form.get("exp_date")
     cvv = request.form.get("cvv")
 
+    global last_index
     if isLogged and isAdmin:
         if username != "" and name_card != "" and id_card != "" and exp_date != "" and cvv != "":
             if not username in cards.keys():
                 cards[username] = list()
-            cards[username].append((name_card, id_card, exp_date, cvv))
+            last_index += 1
+            cards[username].append((last_index, name_card, id_card, exp_date, cvv))
         return url_for("payment.payment_payment_manager")
     elif isLogged and not isAdmin:
         return redirect(url_for("index"))
@@ -71,7 +77,7 @@ def payment_add_card():
 
 @payment.route("/del_card", methods=["POST"])
 def payment_del_card():
-    id_card = int(request.form.get("id_card"))
+    id_card = int(request.form.get("id_card_del"))
 
     if isLogged and isAdmin:
         for k, v in cards.items():
