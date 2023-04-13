@@ -1,5 +1,9 @@
 {% extends "template.html" %}
 
+{% block title %}
+<title>Gerenciador de meios de pagamentos</title>
+{% endblock %}
+
 {% block head %}
 <style>
     .del {
@@ -10,40 +14,6 @@
 </style>
 
 <script defer>
-    async function submitCard() {
-        id_card = document.getElementById("id_card")
-        cvv = document.getElementById("cvv")
-        if (
-            id_card.value != "" &&
-            cvv.value != "" &&
-            document.getElementById("username").value != "" &&
-            document.getElementById("name_card").value != "" &&
-            document.getElementById("exp_date").value != ""
-        ) {
-            if (id_card.value.length == 16 && !isNaN(id_card.value)) {
-                if (cvv.value.length == 3 && !isNaN(id_card.value)) {
-                    var dataForm = new FormData(document.getElementById("form"));
-
-                    response = await fetch("add_card", {
-                        method: "POST",
-                        body: dataForm
-                    });
-
-                    window.location.href = await response.text();
-                } else {
-                    console.log("CVV fora de formato.")
-                    alert("CVV fora de formato.")
-                }
-            } else {
-                console.log("ID de cartão fora de formato.")
-                alert("ID de cartão fora de formato.")
-            }
-        } else {
-            console.log("Valores inválidos.")
-            alert("Valores inválidos.")
-        }
-    }
-
     async function deleteCard(cardId) {
         document.getElementById("id_card_del").value = cardId
 
@@ -54,21 +24,17 @@
 
         window.location.href = await response.text();
     }
-
-    function goTo(link) {
-        window.location.href = link;
-    }
 </script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="row mb-5 justify-content-center">
+    <div class="row my-5 justify-content-center">
         <div class="col-md-auto">
-            <div id="users_manager" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
+            <div id="payment_manager" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
                 <div class="row my-4">
                     <div class="col mx-4">
-                        <h3>Gerenciador de pagamentos</h3>
+                        <h3>Gerenciador de meios de pagamentos</h3>
                     </div>
                 </div>
                 <div class="row my-4">
@@ -86,7 +52,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <form id="form" method="POST" class="mb-0 justify-content-center">
+                <form id="form" action="add_card" method="POST" class="mb-0 justify-content-center">
                     <div class="row my-3">
                         <div class="col mx-4">
                             <label for="username" class="form-label">Nome de usuário</label>
@@ -125,20 +91,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row my-4 mb-0 justify-content-center">
-                        <div>
-                            <div class="col mx-4">
-                                <button type="button" class="btn btn-primary" style="width: 250px;" onclick="submitCard()">Cadastrar cartão de crédito</button>
-                            </div>
+                    <div class="row my-4 mb-0">
+                        <div class="col mx-4 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary">Cadastrar cartão de crédito</button>
                         </div>
                     </div>
+                    <div class="my-4"></div>
                 </form>
             </div>
         </div>
     </div>
     <div class="row my-5 justify-content-center">
         <div class="col-md-auto">
-            <button type="button" class="btn btn-primary" style="width: 250px;" onclick="goTo('/auth/users_manager')">Gerenciador de usuários</button>
+            <button type="button" class="btn btn-primary" onclick="goTo('/auth/users_manager')">Gerenciador de usuários</button>
         </div>
     </div>
     <div class="row my-5 justify-content-center">

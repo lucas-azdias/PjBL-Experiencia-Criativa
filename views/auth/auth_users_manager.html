@@ -4,17 +4,9 @@
 <title>Gerenciador de usuários</title>
 {% endblock %}
 
-{% block head %}
-<script defer>
-    function goTo(link) {
-        window.location.href = link;
-    }
-</script>
-{% endblock %}
-
 {% block content %}
 <div class="container">
-    <div class="row mb-5 justify-content-center">
+    <div class="row my-5 justify-content-center">
         <div class="col-md-auto">
             <div id="users_manager" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
                 <div class="row my-4">
@@ -76,7 +68,7 @@
     </div>
     <div class="row my-5 justify-content-center">
         <div class="col-md-auto">
-            <button type="button" class="btn btn-primary" onclick="goTo('/payment/payment_manager')">Gerenciador de pagamentos</button>
+            <button type="button" class="btn btn-primary" onclick="goTo('/payment/payment_manager')">Gerenciador de meios de pagamentos</button>
         </div>
     </div>
     <div class="row my-5 justify-content-center">

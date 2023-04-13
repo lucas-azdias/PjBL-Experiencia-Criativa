@@ -11,35 +11,17 @@ cards = {"bafome": [(0, "Bafomé", "1956786311112222", "2024-01", "123")], "robe
 
 isLogged = True
 isAdmin = True
+loggedUsername = "bafome"
 
 
 @payment.route("/")
 def payment_index():
-    return render_template("/payment/payment_index.html")
+    return render_template("/payment/payment_index.html", cards=cards)
 
 
-@payment.route("/list_data")
-def payment_list_data():
-    return render_template("/payment/payment_list_card.html", cards=cards)
-
-
-@payment.route("/register_card", methods=["POST"])
+@payment.route("/register_card")
 def payment_register_card():
-    username = request.form.get("username")
-    name_card = request.form.get("name_card")
-    id_card = request.form.get("id_card")
-    exp_date = request.form.get("exp_date")
-    cvv = request.form.get("cvv")
-
-    global last_index
-    if username != "" and name_card != "" and id_card != "" and exp_date != "" and cvv != "":
-        if not username in cards.keys():
-            cards[username] = list()
-        last_index += 1
-        cards[username].append((last_index, name_card, id_card, exp_date, cvv))
-        return url_for("payment.payment_list_data")
-    else:
-        return url_for("payment.payment_index")
+    return render_template("/payment/payment_register_card.html")
 
 
 @payment.route("/payment_manager")
@@ -61,18 +43,17 @@ def payment_add_card():
     cvv = request.form.get("cvv")
 
     global last_index
-    if isLogged and isAdmin:
-        if username != "" and name_card != "" and id_card != "" and exp_date != "" and cvv != "":
-            if not username in cards.keys():
-                cards[username] = list()
-            last_index += 1
-            cards[username].append((last_index, name_card, id_card, exp_date, cvv))
-        return url_for("payment.payment_payment_manager")
-    elif isLogged and not isAdmin:
+    if isLogged and not isAdmin and not username == loggedUsername:
         return redirect(url_for("index"))
-    else:
+    elif not isLogged and not isAdmin:
         return redirect(url_for("auth.auth_index"))
-
+    
+    if username != "" and name_card != "" and id_card != "" and exp_date != "" and cvv != "":
+        if not username in cards.keys():
+            cards[username] = list()
+        last_index += 1
+        cards[username].append((last_index, name_card, id_card, exp_date, cvv))
+    return redirect(url_for("payment.payment_payment_manager"))
 
 
 @payment.route("/del_card", methods=["POST"])

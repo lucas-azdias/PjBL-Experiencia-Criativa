@@ -1,56 +1,39 @@
 {% extends "template.html" %}
 
+{% block title %}
+<title>Listagem de meios de pagamentos</title>
+{% endblock %}
+
 {% block content %}
 <div class="container">
-    <div class="row mb-5 justify-content-center">
+    <div class="row my-5 justify-content-center">
         <div class="col-md-auto">
             <div id="auth" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
-                <form id="form" method="POST" class="mx-3 mb-0 justify-content-center">
-                    <div class="row my-4">
-                        <div class="col mx-4">
-                            <h3>Cadastro de pagamento</h3>
-                        </div>
+                <div class="row my-4">
+                    <div class="col mx-4">
+                        <h3>Listagem de pagamentos</h3>
                     </div>
-                    <div class="row my-3">
-                        <div class="col mx-4">
-                            <label for="username" class="form-label">Nome de usuário</label>
-                            <input type="text" id="username" name="username" class="form-control">
-                        </div>
+                </div>
+                <div class="row my-4 mb-0 justify-content-center">
+                    <div class="col mx-4">
+                        <ul>
+                            {% if cards|length > 0 %}
+                                {% for k, v in cards|items %}
+                                    {% for card in v %}
+                                        <li>Usuário: {{ k }}; Nome do titular: {{ card[0] }}, ID do cartão: {{ card[1] }}, Data de vencimento: {{ card[2] }}, CVV: {{ card[3] }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            {% else %}
+                                <p> Ainda não há dados registrados </p>
+                            {% endif %}
+                        </ul>
                     </div>
-                    <div class="row my-3">
-                        <div class="col mx-4">
-                            <label for="name_card" class="form-label">Nome do titular</label>
-                            <input type="text" id="name_card" name="name_card" class="form-control">
-                        </div>
+                </div>
+                <div class="row my-4 justify-content-center">
+                    <div class="col-md-auto">
+                        <span><a href="register_card">Cadastrar cartão de crédito</a></span>
                     </div>
-                    <div class="row my-3">
-                        <div class="col mx-4">
-                            <label for="id_card" class="form-label">ID do cartão</label>
-                            <input type="text" id="id_card" name="id_card" class="form-control" maxlength="16" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col mx-4">
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="exp_date" class="form-label">Data de vencimento</label>
-                                    <input type="month" id="exp_date" name="exp_date" class="form-control">
-                                </div>
-                                <div class="col-2"></div>
-                                <div class="col-4">
-                                    <label for="cvv" class="form-label">CVV</label>
-                                    <input type="text" id="cvv" name="cvv" class="form-control" maxlength="3">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row my-4 mb-0">
-                        <div class="col mx-4 d-flex justify-content-center">
-                            <button type="button" class="btn btn-primary" style="width: 250px;" onclick="submitCard()">Cadastrar cartão de crédito</button>
-                        </div>
-                    </div>
-                    <div class="my-4"></div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
