@@ -10,7 +10,7 @@ saved_plants = []
 @plants.route('/')
 def plants_index():
     global saved_plants
-    return render_template('plants/plants_list_plants.html', saved_plants=saved_plants)
+    return render_template('plants/plants_index.html', saved_plants=saved_plants)
 
 
 @plants.route('/register_plant')
