@@ -1,43 +1,5 @@
 {% extends "template.html" %}
 
-{% block head %}
-<script defer>
-    async function submitCard() {
-        id_card = document.getElementById("id_card")
-        cvv = document.getElementById("cvv")
-        if (
-            id_card.value != "" &&
-            cvv.value != "" &&
-            document.getElementById("username").value != "" &&
-            document.getElementById("name_card").value != "" &&
-            document.getElementById("exp_date").value != ""
-        ) {
-            if (id_card.value.length == 16 && !isNaN(id_card.value)) {
-                if (cvv.value.length == 3 && !isNaN(id_card.value)) {
-                    var dataForm = new FormData(document.getElementById("form"));
-
-                    response = await fetch("register_card", {
-                        method: "POST",
-                        body: dataForm
-                    });
-
-                    window.location.href = await response.text();
-                } else {
-                    console.log("CVV fora de formato.")
-                    alert("CVV fora de formato.")
-                }
-            } else {
-                console.log("ID de cartão fora de formato.")
-                alert("ID de cartão fora de formato.")
-            }
-        } else {
-            console.log("Valores inválidos.")
-            alert("Valores inválidos.")
-        }
-    }
-</script>
-{% endblock %}
-
 {% block content %}
 <div class="container">
     <div class="row mb-5 justify-content-center">
