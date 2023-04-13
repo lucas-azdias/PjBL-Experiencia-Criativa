@@ -67,7 +67,10 @@ def auth_add_user():
     password = request.form.get("password")
 
     if isLogged and isAdmin:
-        is_admin = int(request.form.get("is_admin"))
+        is_admin = request.form.get("is_admin")
+        if is_admin == None:
+            return redirect(url_for("auth.auth_users_manager"))
+        is_admin = int(is_admin)
     else:
         is_admin = 0
 
