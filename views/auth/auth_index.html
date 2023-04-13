@@ -1,31 +1,15 @@
 {% extends "template.html" %}
 
-{% block head %}
-<script defer>
-    async function submitLogin() {
-        if (document.getElementById("username").value != "" && document.getElementById("password").value != "") {
-            var dataForm = new FormData(document.getElementById("form"));
-
-            response = await fetch("login", {
-                method: "POST",
-                body: dataForm
-            });
-
-            window.location.href = await response.text();
-        } else {
-            console.log("Valores inválidos.")
-            alert("Valores inválidos.")
-        }
-    }
-</script>
+{% block title %}
+<title>Login</title>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="row mb-5 justify-content-center">
+    <div class="row my-5 justify-content-center">
         <div class="col-md-auto">
             <div id="auth" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
-                <form id="form" method="POST" class="mx-3 mb-0 justify-content-center">
+                <form id="form" action="login" method="POST" class="mx-3 mb-0 justify-content-center">
                     <div class="row my-4">
                         <div class="col mx-4">
                             <h3>Login</h3>
@@ -43,16 +27,14 @@
                             <input type="password" id="password" name="password" class="form-control">
                         </div>
                     </div>
-                    <div class="row my-4 mb-0 justify-content-center">
-                        <div>
-                            <div class="col mx-4">
-                                <button type="button" class="btn btn-primary" style="width: 150px;" onclick="submitLogin()">Entrar</button>
-                            </div>
+                    <div class="row my-4 mb-0">
+                        <div class="col mx-4 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Entrar</button>
                         </div>
                     </div>
                     <div class="row my-4 justify-content-center">
                         <div class="col-md-auto">
-                            <span><a href="register">Ainda não cadastrado?</a></span>
+                            <span><a href="register_user">Ainda não cadastrado?</a></span>
                         </div>
                     </div>
                 </form>

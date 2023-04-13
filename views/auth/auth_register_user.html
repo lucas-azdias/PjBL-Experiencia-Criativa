@@ -1,54 +1,15 @@
 {% extends "template.html" %}
 
-{% block head %}
-<script defer>
-    async function submitCadastroUser() {
-        var username = document.getElementById("username");
-        var password = document.getElementById("password");
-
-        var username_verifier = document.getElementById("username_verifier");
-
-        if (username.value != "" && password.value != "") {
-            if (password.value == document.getElementById("confirm_password").value) {
-                username_verifier.value = username.value
-                response = await fetch("verify_username", {
-                    method: "POST",
-                    body: new FormData(document.getElementById("form_username"))
-                });
-
-                var isUsernameRegistered = JSON.parse(await response.text())[0];
-
-                if (!isUsernameRegistered) {
-                    var dataForm = new FormData(document.getElementById("form"));
-
-                    response = await fetch("add_user", {
-                        method: "POST",
-                        body: dataForm
-                    });
-
-                    window.location.href = await response.text();
-                } else {
-                    console.log("Usuário já cadastrado.")
-                    alert("Usuário já cadastrado.")
-                }
-            } else {
-                console.log("Senhas não coincidem.")
-                alert("Senhas não coincidem.")
-            }
-        } else {
-            console.log("Valores inválidos.")
-            alert("Valores inválidos.")
-        }
-    }
-</script>
+{% block title %}
+<title>Sign-in</title>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="row mb-5 justify-content-center">
+    <div class="row my-5 justify-content-center">
         <div class="col-md-auto">
             <div id="register" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
-                <form id="form" method="POST" class="mx-3 mb-0 justify-content-center">
+                <form id="form" action="add_user" method="POST" class="mx-3 mb-0 justify-content-center">
                     <div class="row my-4">
                         <div class="col mx-4">
                             <h3>Cadastro</h3>
@@ -72,11 +33,14 @@
                             <input type="password" id="confirm_password" class="form-control">
                         </div>
                     </div>
+                    <div class="row my-4 mb-0">
+                        <div class="col mx-4 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Cadastrar usuário</button>
+                        </div>
+                    </div>
                     <div class="row my-4 justify-content-center">
-                        <div>
-                            <div class="col mx-4">
-                                <button type="button" class="btn btn-primary" style="width: 150px;" onclick="submitCadastroUser()">Cadastrar usuário</button>
-                            </div>
+                        <div class="col-md-auto">
+                            <span><a href="./">Já cadastrado?</a></span>
                         </div>
                     </div>
                 </form>

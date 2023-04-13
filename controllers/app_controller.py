@@ -13,7 +13,8 @@ def createApp() -> Flask:
     app.register_blueprint(plants, url_prefix="/plants")
     app.register_blueprint(payment, url_prefix="/payment")
     app.register_blueprint(sensors, url_prefix="/sensors")
-
+    
+    app.config["SECRET_KEY"] = "segredo"
 
     @app.route('/')
     def index():

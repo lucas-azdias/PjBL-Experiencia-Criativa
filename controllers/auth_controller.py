@@ -34,19 +34,19 @@ def auth_login():
         isLogged = True
         if ifAdmin:
             isAdmin = True
-            return url_for("auth.auth_users_manager")
+            return redirect(url_for("auth.auth_users_manager"))
         else:
             isAdmin = False
-            return url_for("index")
+            return redirect(url_for("index"))
     else:
         isLogged = False
         isAdmin = False
-        return url_for("auth.auth_index")
+        return redirect(url_for("auth.auth_index"))
     
 
-@auth.route("/register")
-def auth_register():
-    return render_template("/auth/auth_register.html")
+@auth.route("/register_user")
+def auth_register_user():
+    return render_template("/auth/auth_register_user.html")
 
 
 @auth.route("/users_manager")
@@ -61,17 +61,6 @@ def auth_users_manager():
         return redirect(url_for("auth.auth_index"))
 
 
-@auth.route("/verify_username", methods=["POST"])
-def auth_verify_username():
-    username_verifier = request.form.get("username_verifier")
-    response = list()
-    if username_verifier in [user[0] for user in users]:
-        response.append(True)
-    else:
-        response.append(False)
-    return response
-
-
 @auth.route("/add_user", methods=["POST"])
 def auth_add_user():
     username = request.form.get("username")
@@ -82,11 +71,19 @@ def auth_add_user():
     else:
         is_admin = 0
 
+    usernames = [user[0] for user in users]
+
     user = (username, password, True if is_admin == 1 else False)
-    if not user in users:
+    if not username in usernames:
         users.append(user)
+    else:
+        # Flash -> Erro - usuário já cadastrado
+        if isLogged and isAdmin:
+            return redirect(url_for("auth.auth_users_manager"))
+        else:
+            return redirect(url_for("auth.auth_register_user"))
     
     if isLogged and isAdmin:
-        return url_for("auth.auth_users_manager")
+        return redirect(url_for("auth.auth_users_manager"))
     else:
-        return url_for("index")
+        return redirect(url_for("index"))
