@@ -10,7 +10,7 @@ app = Flask(__name__, template_folder="./views/", static_folder="./static/")
 
 app.register_blueprint(auth, url_prefix="/auth")
 app.register_blueprint(data, url_prefix="/data")
-app.register_blueprint(payment, url_prefix="/pagamento")
+app.register_blueprint(payment, url_prefix="/payment")
 app.register_blueprint(sensor, url_prefix="/sensor")
 
 
