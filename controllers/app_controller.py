@@ -3,7 +3,7 @@ from flask import Flask, render_template
 from controllers.auth_controller import auth
 from controllers.plants_controller import plants
 from controllers.payment_controller import payment
-from controllers.sensor_controller import sensor
+from controllers.sensors_controller import sensors
 
 
 def createApp() -> Flask:
@@ -12,7 +12,7 @@ def createApp() -> Flask:
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(plants, url_prefix="/plants")
     app.register_blueprint(payment, url_prefix="/payment")
-    app.register_blueprint(sensor, url_prefix="/sensor")
+    app.register_blueprint(sensors, url_prefix="/sensors")
 
 
     @app.route('/')
