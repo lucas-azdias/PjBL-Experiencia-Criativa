@@ -1709,6 +1709,7 @@ section {
   padding-top: 5px;
 }
 
+/*
 select {
   appearance: none;
   background-color: #f1f1f1;
@@ -1725,7 +1726,7 @@ select:focus {
   box-shadow: 0 0 2px 1px #b5e6f5;
 }
 
-/* Estilo para seta do dropdown */
+/* Estilo para seta do dropdown /
 select::-ms-expand {
   display: none;
 }
@@ -1749,3 +1750,4 @@ select option {
   color: #555;
   font-size: 16px;
 }
+*/
