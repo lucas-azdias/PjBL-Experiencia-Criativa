@@ -1,0 +1,45 @@
+{% extends "template.html" %}
+
+{% block title %}
+<title>Selecionar Planta</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
+    <form action="sensors_select" method="POST">
+      <div class="form-group">
+        <label for="escolha">Escolha uma opção:</label>
+        <select class="form-control" id="escolha" name="escolha">
+            <option value="{{ None }}">Selecione o Sensor</option>
+            {% for sensor in saved_sensors %}
+                <option value="{{ sensor }}"> {{ sensor }} </option>
+            {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+  
+  <div class="row my-2 justify-content-center">
+
+    {% if sensorTable %}
+        <div class="col-md-6 justify-content-center shadow-sm p-3 bg-white border border-secondary rounded">
+            <h2 class="text-center mb-0"> {{ resultado }}</h2>
+            <h3 class="text-center mb-0 ">Ultimo Registro : {{ last_record }} </h3>
+            <div class="shadow-sm p-3 bg-white border border-secondary rounded">
+                <ul>
+                    <p class="text-left mb-0 "> Registros anteriores </p>
+                {% for registro in sensorTable[resultado] %}
+                    {% if not(registro == last_record) %}
+                        <li > {{ registro }} </li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
+    {% endif %}
+    </div>
+  </div>
+</div>
+</div>
+{% endblock content %}
+    
