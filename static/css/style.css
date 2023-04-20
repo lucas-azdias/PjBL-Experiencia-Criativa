@@ -1708,3 +1708,44 @@ section {
   font-size: 13px;
   padding-top: 5px;
 }
+
+select {
+  appearance: none;
+  background-color: #f1f1f1;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  color: #555;
+  width: 200px;
+  border-radius: 4px;
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #b5e6f5;
+}
+
+/* Estilo para seta do dropdown */
+select::-ms-expand {
+  display: none;
+}
+
+select::before {
+  content: '\25BC';
+  color: #555;
+  font-size: 16px;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+select:hover::before {
+  color: #000;
+}
+
+select option {
+  background-color: #fff;
+  color: #555;
+  font-size: 16px;
+}
