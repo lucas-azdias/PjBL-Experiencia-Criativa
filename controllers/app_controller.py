@@ -5,16 +5,26 @@ from controllers.plants_controller import plants
 from controllers.payment_controller import payment
 from controllers.sensors_controller import sensors
 
+from models import db, instance
+
 
 def createApp() -> Flask:
+    # Criando o FlaskApp
     app = Flask(__name__, template_folder="../views/", static_folder="../static/")
 
+    # Registrando Blueprints
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(plants, url_prefix="/plants")
     app.register_blueprint(payment, url_prefix="/payment")
     app.register_blueprint(sensors, url_prefix="/sensors")
     
+    # Configurações do FlaskApp
+    app.config["TESTING"] = False
     app.config["SECRET_KEY"] = "segredo"
+    app.config["SQLALCHEMY_DATABASE_URI"] = instance
+
+    # Configurações do DataBase
+    db.init_app(app)
 
     @app.route('/')
     def index():
