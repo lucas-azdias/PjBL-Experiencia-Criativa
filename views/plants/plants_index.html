@@ -5,32 +5,32 @@
 {% endblock %}
 
 {% block content %}
-
-<!-- <div class="d-block"> -->
+<div>
+    <h2>Listagem das plantas</h2>
     <div id="cards">
-        <h2>Listagem das plantas</h2>
-    
         {% if saved_plants|length > 0 %}
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-            {% for plant in saved_plants %}
-            <div class="col mb-4">
-                <div class="card card-default">
-                    <div class="card-body">
-                        <h5 class="card-title">Nome planta: {{ plant['nome_planta'] }}</h5>
-                        <p class="card-text">Sensor: {{ plant['sensor'] }}</p>
-                        <p class="card-text">Umidade: {{ plant['umidade'] }}</p>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                {% for plant in saved_plants %}
+                <div class="col mb-4">
+                    <div class="card card-default">
+                        <div class="card-body">
+                            <h5 class="card-title">Nome planta: {{ plant['nome_planta'] }}</h5>
+                            <p class="card-text">Sensor: {{ plant['sensor'] }}</p>
+                            <p class="card-text">Umidade: {{ plant['umidade'] }}</p>
+                        </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
         {% else %}
-        <p> Ainda não há plantas registradas </p>
+            <p> Ainda não há plantas registradas </p>
         {% endif %}
-    </div> 
-    <br>
-    <span><a href="register_plant">Cadastrar planta</a></span>
-    {% endblock content %}
+    </div>
+    <div>
+        <p><a href="register_plant">Cadastrar planta</a></p>
+    </div>
+</div>
+{% endblock content %}
     
 
     
