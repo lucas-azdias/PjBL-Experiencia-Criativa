@@ -8,7 +8,7 @@ class Sensor(db.Model):
     name = db.Column(db.String(50), nullable=False)
     model = db.Column(db.String(50), nullable=False, default="")
     brand = db.Column(db.String(50), nullable=False, default="")
-    measure = db.Column(db.String(2), nullable=False, default="")
+    measure = db.Column(db.String(20), nullable=False, default="")
     voltage = db.Column(db.Float(), nullable=False)
     register_date = db.Column(db.DateTime(), nullable=False, default=datetime.now())
 
