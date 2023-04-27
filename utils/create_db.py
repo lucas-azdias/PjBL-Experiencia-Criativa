@@ -9,5 +9,5 @@ def create_db(app:Flask):
 
         # Configuração inicial do banco de dados
         # ROLE
-        db.insert(Role).values(name="Comum")
-        db.insert(Role).values(name="Adminstrador")
+        db.session.add(Role(name="Comum"))
+        db.session.add(Role(name="Adminstrador"))
