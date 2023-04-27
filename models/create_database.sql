@@ -1,5 +1,5 @@
 create database if not exists pjbl_exp_criativa;
--- drop database if exists experiencia_criativa_restaurante;
+-- drop database if exists pjbl_exp_criativa;
 
 drop user if exists "admin";
 create user if not exists "admin" identified by "123";

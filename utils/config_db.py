@@ -1,9 +1,13 @@
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+
 from models import *
 
 
-def config_db(db:SQLAlchemy):
+def config_db(app:Flask):
     # Configuração inicial do banco de dados
-    # ROLE
-    db.session.add(Role(name="Comum"))
-    db.session.add(Role(name="Adminstrador"))
+    with app.app_context():
+        # ROLE
+        db.session.add(Role(name="Comum"))
+        db.session.commit()
+        db.session.add(Role(name="Adminstrador"))
+        db.session.commit()
