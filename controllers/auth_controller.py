@@ -1,11 +1,9 @@
 from flask import Blueprint, request, render_template, redirect, url_for
+from models import User
 
 
 auth = Blueprint("auth", __name__, template_folder="./views/", static_folder="./static/", root_path="./")
 
-
-# DADOS PUXADOS DO BANCO DE DADOS
-users = [("admin", "12345678", True), ("roberto", "gomes", False), ("bafome", "jesus", True)] # (username, password, is_admin)
 
 isLogged = False
 isAdmin = False
