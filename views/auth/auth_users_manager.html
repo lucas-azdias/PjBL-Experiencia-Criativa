@@ -1,5 +1,7 @@
 {% extends "template.html" %}
 
+{% import "utils/macros.html" as macros %}
+
 {% block title %}
 <title>Gerenciador de usuários</title>
 {% endblock %}
@@ -7,7 +9,7 @@
 {% block content %}
 <div class="container">
     <div class="row my-5 justify-content-center">
-        <div class="col-md-auto">
+        <div class="col-6">
             <div id="users_manager" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
                 <div class="row my-4">
                     <div class="col mx-4">
@@ -27,34 +29,52 @@
                         {% endif %}
                     </div>
                 </div>
+                <div class="row my-4"></div>
                 <form id="form" action="add_user" method="POST" class="mb-0 justify-content-center">
-                    <div class="row my-3">
+                    <div class="row my-4">
                         <div class="col mx-4">
-                            <label for="username" class="form-label">Nome de usuário</label>
-                            <input type="text" id="username" name="username" class="form-control">
+                            <h5>Cadastro de usuário</h5>
                         </div>
                     </div>
                     <div class="row my-3">
+                        {{ macros.input("Nome completo", id="name", name="name", type="text") }}
+                    </div>
+                    <div class="row my-3">
+                        {{ macros.input("Nome de usuário", id="username", name="username", type="text") }}
+                    </div>
+                    <div class="row my-3">
+                        {{ macros.input("E-mail", id="email", name="email", type="email") }}
+                    </div>
+                    <div class="row my-3">
+                        {{ macros.input("Telefone", id="phone", name="phone", type="text", extra_params="maxlength=14") }}
+                    </div>
+                    <div class="row my-3">
+                        {{ macros.select({"Comum" : 0, "Administrador" : 1}, "Selecionar permissão", id="is_admin", name="is_admin") }}
+                    </div>
+                    <div class="row my-3">
+                        {{ macros.input("Senha de acesso", id="password", name="password", type="text") }}
+                    </div>
+                    <div class="row my-3">
+                        {{ macros.input("Confirmar senha", id="confirm_password", name="confirm_password", type="text") }}
+                    </div>
+                    <div class="row my-4"></div>
+                    <div class="row my-4">
                         <div class="col mx-4">
-                            <label for="password" class="form-label">Senha de acesso</label>
-                            <input type="password" id="password" name="password" class="form-control">
+                            <h6>Cartão de crédito</h6>
                         </div>
                     </div>
                     <div class="row my-3">
-                        <div class="col mx-4">
-                            <label for="password" class="form-label">Confirmar senha de acesso</label>
-                            <input type="password" id="confirm_password" class="form-control">
-                        </div>
+                        {{ macros.input("Número de cartão de crédito", id="card_num_card", name="card_num_card", type="text",
+                        extra_params="maxlength=16") }}
                     </div>
                     <div class="row my-3">
-                        <div class="col mx-4">
-                            <label for="is_admin" class="form-label">Selecionar permissão</label>
-                            <select id="is_admin" name="is_admin" class="form-control">
-                                <option value="" selected disabled></option>
-                                <option value="0">Comum</option>
-                                <option value="1">Administrador</option>
-                            </select>
-                        </div>
+                        {{ macros.input("Nome do titular", id="card_name_owner", name="card_name_owner", type="text") }}
+                    </div>
+                    <div class="row my-3">
+                        {{ macros.input("CVV", id="card_cvv", name="card_cvv", type="text", extra_params="maxlength=3") }}
+                    </div>
+                    <div class="row my-3">
+                        {{ macros.input("Data de validade", id="card_expire_date", name="card_expire_date", type="month") }}
                     </div>
                     <div class="row my-4 mb-0">
                         <div class="col mx-4 d-flex justify-content-center">

@@ -9,7 +9,11 @@
                 <li><a class="nav-link scrollto" href="/plants">Plantas</a></li>
                 <li><a class="nav-link scrollto" href="/sensors">Sensores</a></li>
                 <li><a class="nav-link scrollto" href="/payment">Pagamento</a></li>
+                {% if not current_user.is_authenticated %}
                 <li><a class="nav-link scrollto" href="/auth">Login</a></li>
+                {% else %}
+                <li><a class="nav-link scrollto" href="/auth/logout">Logout</a></li>
+                {% endif %}
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>

@@ -1,8 +1,8 @@
 from models.db import db, instance
 
+from models.login_manager import login_manager
+
 from models.auth.user import User
-from models.auth.role import Role
-from models.auth.user_role import UserRole
 
 from models.sensors.sensor import Sensor
 from models.sensors.record import Record

@@ -5,7 +5,7 @@ from controllers.plants_controller import plants
 from controllers.payment_controller import payment
 from controllers.sensors_controller import sensors
 
-from models import db, instance
+from models import db, instance, login_manager
 
 
 def createApp() -> Flask:
@@ -25,6 +25,9 @@ def createApp() -> Flask:
 
     # Configurações do DataBase
     db.init_app(app)
+
+    # Configurações do Gerenciador de Login
+    login_manager.init_app(app)
 
     @app.route('/')
     def index():

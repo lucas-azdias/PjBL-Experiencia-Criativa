@@ -1,4 +1,5 @@
 from models import db, Sensor
+
 from datetime import datetime
 
 
