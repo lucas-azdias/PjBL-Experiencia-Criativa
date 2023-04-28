@@ -1,50 +1,23 @@
 {% extends "template.html" %}
 
+{% import "utils/page_macros.html" as page_macros %}
+{% import "utils/form_macros.html" as form_macros %}
+
 {% block title %}
 <title>Login</title>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="row my-5 justify-content-center">
-        <div class="col-md-auto">
-            <div id="auth" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
-                <form id="form" action="login" method="POST" class="mx-3 mb-0 justify-content-center">
-                    <div class="row my-4">
-                        <div class="col mx-4">
-                            <h3>Login</h3>
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col mx-4">
-                            <label for="username" class="form-label">Nome de usuário</label>
-                            <input type="text" id="username" name="username" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col mx-4">
-                            <label for="password" class="form-label">Senha de acesso</label>
-                            <input type="password" id="password" name="password" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row my-4 mb-0">
-                        <div class="col mx-4 d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary">Entrar</button>
-                        </div>
-                    </div>
-                    <div class="row my-4 justify-content-center">
-                        <div class="col-md-auto">
-                            <span><a href="register_user">Ainda não cadastrado?</a></span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="row my-5 justify-content-center">
-        <div class="col-md-auto">
-            <span><a href="/">Voltar ao início</a></span>
-        </div>
-    </div>
+    {{ form_macros.formdivrow_start("auth", "md-auto") }}
+        {{ form_macros.form_start("form", "login") }}
+            {{ form_macros.title("Login") }}
+            {{ form_macros.input("Nome de usuário", id="username", name="username", type="text") }}
+            {{ form_macros.input("Senha de acesso", id="password", name="password", type="password") }}
+            {{ form_macros.button(label='Entrar') }}
+            {{ form_macros.endlabel("Ainda não cadastrado?", "register_user", is_link=true) }}
+        {{ form_macros.form_end() }}
+    {{ form_macros.formdivrow_end() }}
+    {{ page_macros.page_endlabel("Voltar ao início", "/", is_link=true) }}
 </div>
 {% endblock %}

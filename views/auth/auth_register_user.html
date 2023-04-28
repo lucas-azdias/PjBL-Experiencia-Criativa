@@ -1,6 +1,7 @@
 {% extends "template.html" %}
 
-{% import "utils/macros.html" as macros %}
+{% import "utils/page_macros.html" as page_macros %}
+{% import "utils/form_macros.html" as form_macros %}
 
 {% block title %}
 <title>Sign-in</title>
@@ -8,72 +9,31 @@
 
 {% block content %}
 <div class="container">
-    <div class="row my-5 justify-content-center">
-        <div class="col-6">
-            <div id="register" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
-                <form id="form" action="add_user" method="POST" class="mx-3 mb-0 justify-content-center">
-                    <div class="row my-4">
-                        <div class="col mx-4">
-                            <h3>Cadastro</h3>
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        {{ macros.input("Nome completo", id="name", name="name", type="text") }}
-                    </div>
-                    <div class="row my-3">
-                        {{ macros.input("Nome de usuário", id="username", name="username", type="text") }}
-                    </div>
-                    <div class="row my-3">
-                        {{ macros.input("E-mail", id="email", name="email", type="email") }}
-                    </div>
-                    <div class="row my-3">
-                        {{ macros.input("Telefone", id="phone", name="phone", type="text", extra_params="maxlength=14") }}
-                    </div>
-                    <div class="row my-3">
-                        {{ macros.input("Senha de acesso", id="password", name="password", type="text") }}
-                    </div>
-                    <div class="row my-3">
-                        {{ macros.input("Confirmar senha", id="confirm_password", name="confirm_password", type="text") }}
-                    </div>
-                    <div class="row my-4"></div>
-                    <div class="row my-4">
-                        <div class="col mx-4">
-                            <h5>Cartão de crédito</h5>
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        {{ macros.input("Número de cartão de crédito", id="card_num_card", name="card_num_card", type="text", extra_params="maxlength=16") }}
-                    </div>
-                    <div class="row my-3">
-                        {{ macros.input("Nome do titular", id="card_name_owner", name="card_name_owner", type="text") }}
-                    </div>
-                    <div class="row my-3">
-                        {{ macros.input("CVV", id="card_cvv", name="card_cvv", type="text", extra_params="maxlength=3") }}
-                    </div>
-                    <div class="row my-3">
-                        {{ macros.input("Data de validade", id="card_expire_date", name="card_expire_date", type="month") }}
-                    </div>
-                    <div class="row my-4 mb-0">
-                        <div class="col mx-4 d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary">Cadastrar usuário</button>
-                        </div>
-                    </div>
-                    <div class="row my-4 justify-content-center">
-                        <div class="col-md-auto">
-                            <span><a href="./">Já cadastrado?</a></span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="row my-5 justify-content-center">
-        <div class="col-md-auto">
-            <span><a href="/">Voltar ao início</a></span>
-        </div>
-    </div>
+    {{ form_macros.formdivrow_start("register", col_size="6") }}
+        {{ form_macros.form_start("form", "add_user") }}
+
+            {{ form_macros.title("Cadastro") }}
+            {{ form_macros.input("Nome completo", id="name", name="name", type="text") }}
+            {{ form_macros.input("Nome de usuário", id="username", name="username", type="text") }}
+            {{ form_macros.input("E-mail", id="email", name="email", type="email") }}
+            {{ form_macros.input("Telefone", id="phone", name="phone", type="text", extra_params="maxlength=14") }}
+            {{ form_macros.input("Senha de acesso", id="password", name="password", type="text") }}
+            {{ form_macros.input("Confirmar senha", id="confirm_password", name="confirm_password", type="text") }}
+
+            {{ form_macros.br() }}
+
+            {{ form_macros.subtitle("Cartão de crédito") }}
+            {{ form_macros.input("Número de cartão de crédito", id="card_num_card", name="card_num_card", type="text", extra_params="maxlength=16") }}
+            {{ form_macros.input("Nome do titular", id="card_name_owner", name="card_name_owner", type="text") }}
+            {{ form_macros.input("CVV", id="card_cvv", name="card_cvv", type="text", extra_params="maxlength=3") }}
+            {{ form_macros.input("Data de validade", id="card_expire_date", name="card_expire_date", type="month") }}
+
+            {{ form_macros.button(label='Cadastrar usuário') }}
+
+            {{ form_macros.endlabel("Já cadastrado?", "./", is_link=true) }}
+
+        {{ form_macros.form_end() }}
+    {{ form_macros.formdivrow_end() }}
+    {{ page_macros.page_endlabel("Voltar ao início", "/", is_link=true) }}
 </div>
-<form id="form_username" method="POST" hidden>
-    <input id="username_verifier" name="username_verifier" type="hidden">
-</form>
 {% endblock %}
