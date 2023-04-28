@@ -10,6 +10,7 @@
 {% block content %}
 <div class="container">
     {{ form_macros.formdivrow_start("register", col_size="6") }}
+
         {{ form_macros.form_start("form", "add_user") }}
 
             {{ form_macros.title("Cadastro") }}
@@ -33,7 +34,9 @@
             {{ form_macros.endlabel("Já cadastrado?", "./", is_link=true) }}
 
         {{ form_macros.form_end() }}
+
     {{ form_macros.formdivrow_end() }}
+    
     {{ page_macros.page_endlabel("Voltar ao início", "/", is_link=true) }}
 </div>
 {% endblock %}

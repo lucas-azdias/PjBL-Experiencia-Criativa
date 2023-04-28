@@ -10,6 +10,7 @@
 {% block content %}
 <div class="container">
     {{ form_macros.formdivrow_start("users_manager", col_size="6") }}
+
         {{ form_macros.title("Gerenciador de usuários") }}
         <div class="row my-4">
             <div class="col mx-4">
@@ -25,6 +26,7 @@
             </div>
         </div>
         {{ form_macros.br() }}
+
         {{ form_macros.form_start("form", "add_user") }}
 
             {{ form_macros.subtitle("Cadastro de usuário") }}
@@ -49,12 +51,15 @@
             {{ form_macros.br() }}
 
         {{ form_macros.form_end() }}
+
     {{ form_macros.formdivrow_end() }}
+
     <div class="row my-5 justify-content-center">
         <div class="col-md-auto">
             <button type="button" class="btn btn-primary" onclick="goTo('/payment/payment_manager')">Gerenciador de meios de pagamentos</button>
         </div>
     </div>
+    
     {{ page_macros.page_endlabel("Voltar ao início", "/", is_link=true) }}
 </div>
 {% endblock %}

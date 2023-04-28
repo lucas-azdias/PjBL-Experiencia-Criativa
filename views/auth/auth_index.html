@@ -10,14 +10,19 @@
 {% block content %}
 <div class="container">
     {{ form_macros.formdivrow_start("auth", "md-auto") }}
+
         {{ form_macros.form_start("form", "login") }}
+
             {{ form_macros.title("Login") }}
             {{ form_macros.input("Nome de usuário", id="username", name="username", type="text") }}
             {{ form_macros.input("Senha de acesso", id="password", name="password", type="password") }}
             {{ form_macros.button(label='Entrar') }}
             {{ form_macros.endlabel("Ainda não cadastrado?", "register_user", is_link=true) }}
+
         {{ form_macros.form_end() }}
+
     {{ form_macros.formdivrow_end() }}
+    
     {{ page_macros.page_endlabel("Voltar ao início", "/", is_link=true) }}
 </div>
 {% endblock %}
