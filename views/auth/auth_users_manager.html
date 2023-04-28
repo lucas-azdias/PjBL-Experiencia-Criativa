@@ -10,7 +10,7 @@
 {% block content %}
 <div class="container">
     {{ page_macros.flash_verifier() }}
-    
+
     {{ form_macros.formdivrow_start("users_manager", col_size="6") }}
 
         {{ form_macros.title("Gerenciador de usuários") }}
@@ -37,8 +37,8 @@
             {{ form_macros.input("E-mail", id="email", name="email", type="email") }}
             {{ form_macros.input("Telefone", id="phone", name="phone", type="text", extra_params="maxlength=14") }}
             {{ form_macros.select({"Comum" : 0, "Administrador" : 1}, "Selecionar permissão", id="is_admin", name="is_admin") }}
-            {{ form_macros.input("Senha de acesso", id="password", name="password", type="text") }}
-            {{ form_macros.input("Confirmar senha", id="confirm_password", name="confirm_password", type="text") }}
+            {{ form_macros.input("Senha de acesso", id="password", name="password", type="password") }}
+            {{ form_macros.input("Confirmar senha", id="confirm_password", name="confirm_password", type="password") }}
 
             {{ form_macros.br() }}
 

@@ -108,7 +108,7 @@ def auth_add_user():
     if None in info or "" in info:
         # Informações inválidas
         flash("Informações inválidas", "danger")
-        return redirect(url_for(request.referrer))
+        return redirect(request.referrer)
     
     # Pega todos os usernames
     usernames = [user.username for user in User.query.all()]
@@ -119,10 +119,13 @@ def auth_add_user():
     if not hasUsername and isPasswordConfirmed:
         user = User.insert_user(username, name, email, phone, password, is_admin, card_num_card, card_name_owner, card_cvv, card_month_expire_date, card_year_expire_date)
         
+        if current_user.is_authenticated:
+            logout_user()
+
         # Registrado com sucesso
         flash("Registrado com sucesso", "success")
 
-        return redirect(url_for("auth.index"))
+        return redirect(url_for("auth.auth_index"))
     else:
         if not isPasswordConfirmed:
             # Senha não confirmada
@@ -132,4 +135,5 @@ def auth_add_user():
             flash("Usuário já cadastrado", "warning")
 
         # Redireciona para a última página
-        return redirect(url_for(request.referrer))
+        print(request.referrer)
+        return redirect(request.referrer)

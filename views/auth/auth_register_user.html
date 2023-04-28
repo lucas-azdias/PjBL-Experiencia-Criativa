@@ -10,7 +10,7 @@
 {% block content %}
 <div class="container">
     {{ page_macros.flash_verifier() }}
-    
+
     {{ form_macros.formdivrow_start("register", col_size="6") }}
 
         {{ form_macros.form_start("form", "add_user") }}
@@ -20,8 +20,8 @@
             {{ form_macros.input("Nome de usuário", id="username", name="username", type="text") }}
             {{ form_macros.input("E-mail", id="email", name="email", type="email") }}
             {{ form_macros.input("Telefone", id="phone", name="phone", type="text", extra_params="maxlength=14") }}
-            {{ form_macros.input("Senha de acesso", id="password", name="password", type="text") }}
-            {{ form_macros.input("Confirmar senha", id="confirm_password", name="confirm_password", type="text") }}
+            {{ form_macros.input("Senha de acesso", id="password", name="password", type="password") }}
+            {{ form_macros.input("Confirmar senha", id="confirm_password", name="confirm_password", type="password") }}
 
             {{ form_macros.br() }}
 

@@ -1,3 +1,5 @@
+{% import "utils/page_macros.html" as page_macros %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
     
@@ -34,9 +36,9 @@
         <!-- ======= Hero Section ======= -->
         <section id="hero">
             <div class="hero-container">
-            <a href="#hero" class="hero-logo" data-aos="zoom-in"><img src="../static/img/planta_t.png" alt=""></a>
-            <h1 data-aos="zoom-in">Seja bem vindo ao seu Gerenciado de Jardim</h1>
-            <h2 data-aos="fade-up">Para o seu bem e de suas plantas tambem</h2>
+                <a href="#hero" class="hero-logo" data-aos="zoom-in"><img src="../static/img/planta_t.png" alt=""></a>
+                <h1 data-aos="zoom-in">Seja bem vindo ao seu Gerenciado de Jardim</h1>
+                <h2 data-aos="fade-up">Para o seu bem e de suas plantas tambem</h2>
             </div>
         </section>
         <!-- End Hero -->
@@ -51,6 +53,7 @@
             <section id="about" class="about">
                 <div class="container">
                     <div class="section-title" data-aos="fade-up">
+                        {{ page_macros.flash_verifier() }}
                         <h2>Sobre nós</h2>
                         <p>Os alunos responsaveis pelo projeto</p>
                     </div>

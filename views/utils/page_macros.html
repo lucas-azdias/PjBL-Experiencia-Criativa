@@ -1,8 +1,8 @@
 {% import "utils/macros.html" as macros %}
 
-{% macro flash_verifier() %}
+{% macro flash_verifier(show=true) %}
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
+        {% if messages and show %}
             {% for category, message in messages %}
                 {{ macros.msg_alert(message, category if category else "") }}
             {% endfor %}
