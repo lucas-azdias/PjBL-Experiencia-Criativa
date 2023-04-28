@@ -9,6 +9,8 @@
 
 {% block content %}
 <div class="container">
+    {{ page_macros.flash_verifier() }}
+    
     {{ form_macros.formdivrow_start("auth", "md-auto") }}
 
         {{ form_macros.form_start("form", "login") }}
@@ -22,7 +24,7 @@
         {{ form_macros.form_end() }}
 
     {{ form_macros.formdivrow_end() }}
-    
-    {{ page_macros.page_endlabel("Voltar ao início", "/", is_link=true) }}
+
+    {{ page_macros.endlabel("Voltar ao início", "/", is_link=true) }}
 </div>
 {% endblock %}

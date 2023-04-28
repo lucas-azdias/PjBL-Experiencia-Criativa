@@ -1,4 +1,16 @@
-{% macro page_endlabel(label='', link='', is_link=false) %}
+{% import "utils/macros.html" as macros %}
+
+{% macro flash_verifier() %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {{ macros.msg_alert(message, category if category else "") }}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endmacro %}
+
+{% macro endlabel(label='', link='', is_link=false) %}
     <div class="row my-5 justify-content-center">
         <div class="col-md-auto">
             <span>
@@ -12,7 +24,7 @@
     </div>
 {% endmacro %}
 
-{% macro page_endbutton(label='', onclick='') %}
+{% macro endbutton(label='', onclick='') %}
     <div class="row my-5 justify-content-center">
         <div class="col-md-auto">
             <button type="button" class="btn btn-primary" onclick="{{ onclick }}">{{ label }}</button>

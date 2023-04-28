@@ -25,11 +25,13 @@ a:hover {
 }
 
 button {
-  background-color: #7cc576;
+  color: #fff !important;
+  background-color: #7cc576 !important;
+  border: none !important;
 }
 
 button:hover {
-  background-color: #9ed49a;
+  background-color: #9ed49a !important;
 }
 
 h1,

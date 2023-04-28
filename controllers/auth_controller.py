@@ -12,6 +12,8 @@ def auth_index():
     if not current_user.is_authenticated:
         return render_template("/auth/auth_index.html")
     else:
+        # Já autenticado
+        flash("Já autenticado", "warning")
         return redirect(url_for("index"))
 
 
@@ -23,10 +25,14 @@ def auth_login():
     user = User.query.filter_by(username=username).first()
 
     if not user or not user.verify_password(password):
+        # Nome de usuário e/ou senha incorretos
+        flash("Nome de usuário e/ou senha incorretos", "danger")
         return redirect(url_for("auth.auth_index"))
     
     login_user(user)
 
+    # Logado com sucesso
+    flash("Logado com sucesso", "success")
     if user.is_admin:
         return redirect(url_for("auth.auth_users_manager"))
     else:
@@ -37,6 +43,8 @@ def auth_login():
 @login_required
 def auth_logout():
     logout_user()
+    # Deslogado com sucesso
+    flash("Deslogado com sucesso", "success")
     return redirect(url_for("auth.auth_index"))
     
 
@@ -45,6 +53,8 @@ def auth_register_user():
     if not current_user.is_authenticated:
         return render_template("/auth/auth_register_user.html")
     else:
+        # Já autenticado
+        flash("Já autenticado", "warning")
         return redirect(url_for("index"))
 
 
@@ -57,6 +67,8 @@ def auth_users_manager():
         is_admin = [user.is_admin for user in users]
         return render_template("/auth/auth_users_manager.html", usernames=usernames, is_admin=is_admin)
     else:
+        # Sem permissão necessária
+        flash("Sem permissão necessária", "danger")
         return redirect(url_for("index"))
 
 
@@ -95,7 +107,7 @@ def auth_add_user():
             is_admin, card_num_card, card_name_owner, card_cvv, card_expire_date]
     if None in info or "" in info:
         # Informações inválidas
-        flash("Informações inválidas.")
+        flash("Informações inválidas", "danger")
         return redirect(url_for(request.referrer))
     
     # Pega todos os usernames
@@ -106,18 +118,18 @@ def auth_add_user():
     isPasswordConfirmed = password == confirm_password
     if not hasUsername and isPasswordConfirmed:
         user = User.insert_user(username, name, email, phone, password, is_admin, card_num_card, card_name_owner, card_cvv, card_month_expire_date, card_year_expire_date)
-        if not current_user.is_authenticated:
-            login_user(user)
         
         # Registrado com sucesso
-        flash("Registrado com sucesso.")
+        flash("Registrado com sucesso", "success")
+
+        return redirect(url_for("auth.index"))
     else:
         if not isPasswordConfirmed:
             # Senha não confirmada
-            flash("Senha de acesso não confirmada.")
+            flash("Senha de acesso não confirmada", "warning")
         elif hasUsername:
             # Usuário já cadastrado
-            flash("Usuário já cadastrado.")
+            flash("Usuário já cadastrado", "warning")
 
-    # Redireciona para a última página
-    return redirect(url_for(request.referrer))
+        # Redireciona para a última página
+        return redirect(url_for(request.referrer))
