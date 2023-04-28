@@ -118,14 +118,14 @@ def auth_add_user():
     isPasswordConfirmed = password == confirm_password
     if not hasUsername and isPasswordConfirmed:
         user = User.insert_user(username, name, email, phone, password, is_admin, card_num_card, card_name_owner, card_cvv, card_month_expire_date, card_year_expire_date)
-        
-        if current_user.is_authenticated:
-            logout_user()
 
         # Registrado com sucesso
         flash("Registrado com sucesso", "success")
 
-        return redirect(url_for("auth.auth_index"))
+        if not current_user.is_authenticated:
+            login_user(user)
+
+        return redirect(request.referrer)
     else:
         if not isPasswordConfirmed:
             # Senha não confirmada
