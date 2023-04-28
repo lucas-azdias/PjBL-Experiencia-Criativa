@@ -24,6 +24,14 @@ a:hover {
   text-decoration: none;
 }
 
+button {
+  background-color: #7cc576;
+}
+
+button:hover {
+  background-color: #9ed49a;
+}
+
 h1,
 h2,
 h3,

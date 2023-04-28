@@ -54,12 +54,8 @@
 
     {{ form_macros.formdivrow_end() }}
 
-    <div class="row my-5 justify-content-center">
-        <div class="col-md-auto">
-            <button type="button" class="btn btn-primary" onclick="goTo('/payment/payment_manager')">Gerenciador de meios de pagamentos</button>
-        </div>
-    </div>
-    
+    {{ page_macros.page_endbutton("Gerenciador de meios de pagamentos", "goTo('/payment/payment_manager')") }}
+
     {{ page_macros.page_endlabel("Voltar ao início", "/", is_link=true) }}
 </div>
 {% endblock %}

@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 
 from models import User
@@ -62,6 +62,7 @@ def auth_users_manager():
 
 @auth.route("/add_user", methods=["POST"])
 def auth_add_user():
+    # Dados do usuário
     username = request.form.get("username")
     name = request.form.get("name")
     email = request.form.get("email")
@@ -76,32 +77,47 @@ def auth_add_user():
     card_expire_date = request.form.get("card_expire_date")
     
     card_expire_date = card_expire_date.split("-")
-    card_month_expire_date = int(card_expire_date[0])
-    card_year_expire_date = int(card_expire_date[1])
+    try:
+        card_month_expire_date = int(card_expire_date[0])
+        card_year_expire_date = int(card_expire_date[1])
+    except:
+        card_month_expire_date = None
+        card_year_expire_date = None
 
 
+    # Verifica se pode dar permissão de admin (se pode, dá se foi requerido)
     is_admin = False
     if current_user.is_authenticated and current_user.is_admin:
         is_admin = True if request.form.get("is_admin") == "1" else False
 
-    if None in [username, name, email, phone, password, confirm_password, is_admin, card_num_card, card_name_owner, card_cvv, card_expire_date]:
+    # Verifica se há alguma informação vazia
+    info = [username, name, email, phone, password, confirm_password,
+            is_admin, card_num_card, card_name_owner, card_cvv, card_expire_date]
+    if None in info or "" in info:
+        # Informações inválidas
+        flash("Informações inválidas.")
         return redirect(url_for(request.referrer))
     
-    users = User.query.all()
-    usernames = [user.username for user in users]
+    # Pega todos os usernames
+    usernames = [user.username for user in User.query.all()]
 
-    if not username in usernames and password == confirm_password:
+    # Se não haver repetição de username e senha for confirmada, adiciona usuário
+    hasUsername = username in usernames
+    isPasswordConfirmed = password == confirm_password
+    if not hasUsername and isPasswordConfirmed:
         user = User.insert_user(username, name, email, phone, password, is_admin, card_num_card, card_name_owner, card_cvv, card_month_expire_date, card_year_expire_date)
         if not current_user.is_authenticated:
             login_user(user)
+        
+        # Registrado com sucesso
+        flash("Registrado com sucesso.")
     else:
-        # Flash -> Erro - usuário já cadastrado
-        if current_user.is_authenticated and current_user.is_admin:
-            return redirect(url_for("auth.auth_users_manager"))
-        else:
-            return redirect(url_for("auth.auth_register_user"))
-    
-    if current_user.is_authenticated and current_user.is_admin:
-        return redirect(url_for("auth.auth_users_manager"))
-    else:
-        return redirect(url_for("index"))
+        if not isPasswordConfirmed:
+            # Senha não confirmada
+            flash("Senha de acesso não confirmada.")
+        elif hasUsername:
+            # Usuário já cadastrado
+            flash("Usuário já cadastrado.")
+
+    # Redireciona para a última página
+    return redirect(url_for(request.referrer))

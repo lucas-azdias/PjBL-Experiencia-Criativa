@@ -1,13 +1,21 @@
 {% macro page_endlabel(label='', link='', is_link=false) %}
-<div class="row my-5 justify-content-center">
-    <div class="col-md-auto">
-        <span>
-            {% if is_link %}
-            <a href="{{ link }}">{{ label }}</a>
-            {% else %}
-            {{ label }}
-            {% endif %}
-        </span>
+    <div class="row my-5 justify-content-center">
+        <div class="col-md-auto">
+            <span>
+                {% if is_link %}
+                <a href="{{ link }}">{{ label }}</a>
+                {% else %}
+                {{ label }}
+                {% endif %}
+            </span>
+        </div>
     </div>
-</div>
+{% endmacro %}
+
+{% macro page_endbutton(label='', onclick='') %}
+    <div class="row my-5 justify-content-center">
+        <div class="col-md-auto">
+            <button type="button" class="btn btn-primary" onclick="{{ onclick }}">{{ label }}</button>
+        </div>
+    </div>
 {% endmacro %}
