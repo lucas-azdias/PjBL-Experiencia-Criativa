@@ -4,9 +4,9 @@
     <div class="row my-3">
         {{ macros.input(label, placeholder, id, name, type, extra_params) }}
     </div>
-    {% endmacro %}
+{% endmacro %}
 
-    {% macro select(options, label='', placeholder='', id='', name='') %}
+{% macro select(options, label='', placeholder='', id='', name='') %}
     <div class="row my-3">
         {{ macros.select(options, label, placeholder, id, name) }}
     </div>
