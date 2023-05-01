@@ -20,6 +20,7 @@ class User(db.Model):
 
     # Relações 1:N
     payments = db.relationship("Payment", backref="users", lazy=True)
+    sensors = db.relationship("Sensor", backref="users", lazy=True)
 
     # Métodos necessários para o Flask-Login
     @property

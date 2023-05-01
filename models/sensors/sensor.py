@@ -1,4 +1,4 @@
-from models import db
+from models import db, User
 
 from datetime import datetime
 
@@ -6,6 +6,7 @@ from datetime import datetime
 class Sensor(db.Model):
     __tablename__ = "sensors"
     id_sensor = db.Column(db.Integer(), primary_key=True)
+    id_user = db.Column(db.Integer(), db.ForeignKey(User.id_user))
     name = db.Column(db.String(50), nullable=False)
     model = db.Column(db.String(50), nullable=False, default="")
     brand = db.Column(db.String(50), nullable=False, default="")
