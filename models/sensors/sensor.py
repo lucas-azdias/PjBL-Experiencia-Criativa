@@ -16,3 +16,13 @@ class Sensor(db.Model):
     # Relações 1:N
     records = db.relationship("Record", backref="sensors", lazy=True)
     plants = db.relationship("Plant", backref="sensors", lazy=True)
+
+
+    def insert(user , name, model , brand , measure , voltage):
+        
+        sensor = Sensor(id_sensor=user.id_user,name=name,model=model,brand=brand ,measure= measure,voltage=voltage)
+
+        db.session.add(sensor)
+        db.session.commit()
+        return 1
+    

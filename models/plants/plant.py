@@ -1,5 +1,5 @@
-from models import db, Sensor
-
+from models import db
+from models.sensors.sensor import Sensor
 
 class Plant(db.Model):
     __tablename__ = "plants"

@@ -1,9 +1,10 @@
 from models import db, login_manager
-
+from models.sensors.sensor import Sensor
 
 class User(db.Model):
     __tablename__ = "users"
     id_user = db.Column(db.Integer(), primary_key=True)
+    id_sensor = db.Column(db.Integer , db.ForeignKey(Sensor.id_sensor))
     username = db.Column(db.String(30), nullable=False, unique=True)
     name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False)
@@ -20,6 +21,7 @@ class User(db.Model):
 
     # Relações 1:N
     payments = db.relationship("Payment", backref="users", lazy=True)
+    sensors = db.relationship("Sensor", backref = "users" , lazy=True)
 
     # Métodos necessários para o Flask-Login
     @property

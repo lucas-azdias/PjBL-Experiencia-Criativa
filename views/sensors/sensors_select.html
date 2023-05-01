@@ -9,15 +9,20 @@
     <div class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
     <form action="sensors_select" method="POST">
       <div class="form-group">
+        {% if saved_sensors != None %}
         <label for="escolha">Escolha uma opção:</label>
         <select class="form-control" id="escolha" name="escolha">
             <option value="{{ None }}">Selecione o Sensor</option>
-            {% for sensor in saved_sensors %}
-                <option value="{{ sensor }}"> {{ sensor }} </option>
-            {% endfor %}
+              {% for sensor in saved_sensors %}
+                  <option value="{{ sensor }}"> {{ sensor }} </option>
+              {% endfor %}
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            {% else %}
+              <p> Ainda não há sensores registrados </p>
+              <span><a href="create_sensor">Inserir sensor</a></span> <br>
+            {% endif %}
         </select>
       </div>
-      <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
   
   <div class="row my-2 justify-content-center">
