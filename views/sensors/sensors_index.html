@@ -7,11 +7,11 @@
 {% block content %}
 
 <div class="d-block">
-    <h2>Listagem dos Sensores Ativos de {{ user.capitalize() }}</h2>
+    <h2>Listagem dos Sensores Ativos de {{ (user.username).capitalize() }}</h2>
     <ul>
-        {% if saved_sensors|length > 0 %}
-            {% for sensor in saved_sensors %}
-                <li>{{ sensor }}</li>
+        {% if sensores|length > 0 %}
+            {% for sensor in sensores %}
+                <li>{{ sensor.name }}</li>
             {% endfor %}
         {% else %}
             <p> Ainda não há sensores registrados </p>
