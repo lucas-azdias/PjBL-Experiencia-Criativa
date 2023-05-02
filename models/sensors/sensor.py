@@ -34,5 +34,8 @@ class Sensor(db.Model):
         user = User.query.filter_by(id_user=user.id_user).first()
         user_sensors = user.sensors
         return user_sensors
+<<<<<<< HEAD
+>>>>>>> 44670398b65951f5745fef870e3e5d755f4222bc
+=======
 >>>>>>> 44670398b65951f5745fef870e3e5d755f4222bc
     
