@@ -8,6 +8,7 @@ plants = Blueprint("plants", __name__, template_folder="./views/", static_folder
 
 saved_plants = []
 
+
 @plants.route('/')
 def plants_index():
     saved_plants = Plant.select_plant()
@@ -17,21 +18,23 @@ def plants_index():
 @plants.route('/register_plant')
 def plants_register_plant():
     sensors = Sensor.query.all()
-    return render_template('plants/plants_register_plant.html',sensors = sensors, saved_plants=saved_plants)
+    return render_template('plants/plants_register_plant.html', sensors=sensors, saved_plants=saved_plants)
 
 # foreign key check fails.
+
+
 @plants.route('/save_plant', methods=['POST'])
 def plants_save_plant():
-    id_plant = request.form.get("id_plant",None)
-    id_sensor = request.form.get("id_sensor",None)
-    name_plant = request.form.get("name_plant",None)
-    min_humidity = request.form.get("min_humidity",None)
+    id_plant = request.form.get("id_plant", None)
+    id_sensor = request.form.get("id_sensor", None)
+    name = request.form.get("name", None)
+    min_humidity = request.form.get("min_humidity", None)
     id_sensor = request.form.get("sensor", None)
     sensor = Sensor.query.get(id_sensor)
     if sensor is None:
         # lidar com erro, como redirecionar para página de erro ou retornar mensagem de erro
         return redirect(url_for("plants.plants_register_plant"))
-    Plant.insert_plant(id_plant,id_sensor,name_plant,min_humidity)
+    Plant.insert_plant(id_plant, id_sensor, name, min_humidity)
     return redirect(url_for("plants.plants_index"))
 
 
