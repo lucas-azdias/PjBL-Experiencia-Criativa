@@ -18,12 +18,17 @@ class Sensor(db.Model):
     records = db.relationship("Record", backref="sensors", lazy=True)
     plants = db.relationship("Plant", backref="sensors", lazy=True)
 
-
-    def insert(user , name, model , brand , measure , voltage):
+    
+    def insert_sensor(user , name, model , brand , measure , voltage):
         
-        sensor = Sensor(id_sensor=user.id_user,name=name,model=model,brand=brand ,measure= measure,voltage=voltage)
+        sensor = Sensor(id_user=user.id_user,name=name,model=model,brand=brand ,measure= measure,voltage=voltage)
 
         db.session.add(sensor)
         db.session.commit()
         return 1
+
+    def findSensors(user):
+        user = User.query.filter_by(id_user=user.id_user).first()
+        user_sensors = user.sensors
+        return user_sensors
     
