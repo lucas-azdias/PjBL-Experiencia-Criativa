@@ -1,3 +1,4 @@
+
 {% extends "template.html" %}
 
 {% block title %}
@@ -10,24 +11,25 @@
     <form action = "save_plant" method = "POST">
         <div>
             <label for="nome_planta" class="form-label">Nome da planta</label>
-            <input type="text" id="nome_planta" name="nome_planta" class="form-control">
+            <input type="text" id="name_plant" name="name_plant" class="form-control">
         </div>
-        <div>
+        <div>   
             <label for="sensor" class="form-label">Selecione o sensor</label>
             <select id="sensor" name="sensor" class="form-control">
                 <option value="" selected disabled></option>
-                <option value="sensor1">Sensor 1</option>
-                <option value="sensor2">Sensor 2</option>
-                <option value="sensor3">Sensor 3</option>
+                {% for sensor in sensors %}
+                    <option value="{{ sensor.id_sensor }}">{{ sensor.name }}</option>
+                {% endfor %}
             </select>
         </div>
         <div>
             <label for="umidade" class="form-label">Umidade mínima</label>
-            <input type="text" id="umidade" name="umidade" class="form-control">
+            <input type="text" id="min_humidity" name="min_humidity" class="form-control">
         </div>
         <div>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </div>
     </form>
 </div>
+
 {% endblock content %}

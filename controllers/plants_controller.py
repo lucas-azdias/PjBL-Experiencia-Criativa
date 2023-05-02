@@ -1,11 +1,10 @@
 from flask import Blueprint, request, render_template, redirect, url_for
-
+from models import Plant,Sensor
 
 plants = Blueprint("plants", __name__, template_folder="./views/", static_folder="./static/", root_path="./")
 
 
 saved_plants = []
-
 
 @plants.route('/')
 def plants_index():
@@ -16,10 +15,28 @@ def plants_index():
 @plants.route('/register_plant')
 def plants_register_plant():
     global saved_plants
-    return render_template('plants/plants_register_plant.html', saved_plants=saved_plants)
+    sensors = Sensor.query.all()
+    return render_template('plants/plants_register_plant.html',sensors = sensors, saved_plants=saved_plants)
 
-
+# foreign key check fails.
 @plants.route('/save_plant', methods=['POST'])
+def plants_save_plant():
+    id_plant = request.form.get("id_plant",None)
+    id_sensor = request.form.get("id_sensor",None)
+    name_plant = request.form.get("name_plant",None)
+    min_humidity = request.form.get("min_humidity",None)
+    id_sensor = request.form.get("sensor", None)
+    sensor = Sensor.query.get(id_sensor)
+    if sensor is None:
+        # lidar com erro, como redirecionar para página de erro ou retornar mensagem de erro
+        return redirect(url_for("plants.plants_register_plant"))
+    Plant.insert_plant(id_plant,id_sensor,name_plant,min_humidity)
+    return redirect(url_for("plants.plants_index"))
+
+
+''' 
+@plants.route('/save_plant', methods=['POST'])
+
 def plants_save_plant():
     plant_data = {
     'nome_planta': request.form.get("nome_planta"),
@@ -30,3 +47,4 @@ def plants_save_plant():
     saved_plants.append(plant_data)
     #saved_plants.append("Planta " + nome_planta + ", Sensor " + sensor + ", Umidade mínima " + umidade)
     return redirect(url_for("plants.plants_index"))
+'''

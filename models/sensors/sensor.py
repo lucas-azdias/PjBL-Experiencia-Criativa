@@ -25,5 +25,5 @@ class Sensor(db.Model):
 
         db.session.add(sensor)
         db.session.commit()
-        return 1
+        return sensor
     
