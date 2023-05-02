@@ -8,13 +8,12 @@ saved_plants = []
 
 @plants.route('/')
 def plants_index():
-    global saved_plants
+    saved_plants = Plant.select_plant()
     return render_template('plants/plants_index.html', saved_plants=saved_plants)
 
 
 @plants.route('/register_plant')
 def plants_register_plant():
-    global saved_plants
     sensors = Sensor.query.all()
     return render_template('plants/plants_register_plant.html',sensors = sensors, saved_plants=saved_plants)
 
