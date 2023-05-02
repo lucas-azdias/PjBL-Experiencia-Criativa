@@ -1,5 +1,6 @@
 from models import db, Sensor
 
+
 class Plant(db.Model):
     __tablename__ = "plants"
     id_plant = db.Column(db.Integer(), primary_key=True)

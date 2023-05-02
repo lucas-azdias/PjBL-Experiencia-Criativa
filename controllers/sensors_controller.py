@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template , request
 from flask_login import login_user, logout_user, login_required, current_user
 
-from models import Sensor , User
+from models import Sensor, User
 
 
 sensors = Blueprint("sensors", __name__, template_folder="./views/", static_folder="./static/", root_path="./")
