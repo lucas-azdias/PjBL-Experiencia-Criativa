@@ -1,4 +1,7 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, request, render_template, redirect, url_for, flash
+from flask_login import login_required, current_user
+
+from models import User
 
 
 payment = Blueprint("payment", __name__, template_folder="./views/", static_folder="./static/", root_path="./")
@@ -15,27 +18,34 @@ loggedUsername = "bafome"
 
 
 @payment.route("/")
+@login_required
 def payment_index():
     return render_template("/payment/payment_index.html", cards=cards)
 
 
-@payment.route("/register_card")
+@payment.route("/register_payment")
+@login_required
 def payment_register_card():
-    return render_template("/payment/payment_register_card.html")
+    return render_template("/payment/payment_register_payment.html")
 
 
-@payment.route("/payment_manager")
-def payment_payment_manager():
-    if isLogged and isAdmin:
-        return render_template("/payment/payment_payment_manager.html", cards=cards, usernames=usernames)
-    elif isLogged and not isAdmin:
-        return redirect(url_for("index"))
+@payment.route("/payments_manager")
+@login_required
+def payment_payments_manager():
+    if current_user.is_admin:
+        users = User.query.all()
+        usernames = [user.username for user in users]
+        is_admin = [user.is_admin for user in users]
+        return render_template("/payment/payment_payments_manager.html", cards=cards, usernames=usernames)
     else:
-        return redirect(url_for("auth.auth_index"))
+        # Sem permissão necessária
+        flash("Sem permissão necessária", "danger")
+        return redirect(url_for("index"))
 
 
-@payment.route("/add_card", methods=["POST"])
-def payment_add_card():
+@payment.route("/add_payment", methods=["POST"])
+@login_required
+def payment_add_payment():
     username = request.form.get("username")
     name_card = request.form.get("name_card")
     id_card = request.form.get("id_card")
@@ -53,20 +63,21 @@ def payment_add_card():
             cards[username] = list()
         last_index += 1
         cards[username].append((last_index, name_card, id_card, exp_date, cvv))
-    return redirect(url_for("payment.payment_payment_manager"))
+    return redirect(url_for("payment.payment_payments_manager"))
 
 
-@payment.route("/del_card", methods=["POST"])
-def payment_del_card():
-    id_card = int(request.form.get("id_card_del"))
+# @payment.route("/del_card", methods=["POST"])
+# @login_required
+# def payment_del_card():
+#     id_card = int(request.form.get("id_card_del"))
 
-    if isLogged and isAdmin:
-        for k, v in cards.items():
-            for i in range(len(v)):
-                if v[i][0] == id_card:
-                    cards[k].pop(i)
+#     if isLogged and isAdmin:
+#         for k, v in cards.items():
+#             for i in range(len(v)):
+#                 if v[i][0] == id_card:
+#                     cards[k].pop(i)
 
-    if isLogged and isAdmin:
-        return url_for("payment.payment_payment_manager")
-    else:
-        return url_for("index")
+#     if isLogged and isAdmin:
+#         return url_for("payment.payment_payments_manager")
+#     else:
+#         return url_for("index")

@@ -1,0 +1,34 @@
+{% extends "template.html" %}
+
+{% import "utils/page_macros.html" as page_macros %}
+{% import "utils/form_macros.html" as form_macros %}
+
+{% block title %}
+<title>Cadastro de pagamento</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {{ page_macros.flash_verifier() }}
+
+    {{ form_macros.formdivrow_start("payment_manager", col_size="6") }}
+            
+        {{ form_macros.form_start("form", "add_payment") }}
+            
+            {{ form_macros.title("Cadastro de pagamento") }}
+            {{ form_macros.input("Número de cartão de crédito", id="card_num_card", name="card_num_card", type="text", extra_params="maxlength=16") }}
+            {{ form_macros.input("Nome do titular", id="card_name_owner", name="card_name_owner", type="text") }}
+            {{ form_macros.input("CVV", id="card_cvv", name="card_cvv", type="text", extra_params="maxlength=3") }}
+            {{ form_macros.input("Data de validade", id="card_expire_date", name="card_expire_date", type="month") }}
+
+            {{ form_macros.button(label='Cadastrar pagamento') }}
+            
+            {{ form_macros.br() }}
+
+        {{ form_macros.form_end() }}
+
+    {{ form_macros.formdivrow_end() }}
+
+    {{ page_macros.endlabel("Voltar ao início", "/", is_link=true) }}
+</div>
+{% endblock %}

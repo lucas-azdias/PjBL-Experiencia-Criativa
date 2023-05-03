@@ -161,7 +161,7 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0 10px 30px;
+  padding: 10px 0px 10px 30px;
   font-size: 15px;
   color: #151515;
   text-transform: uppercase;
@@ -246,6 +246,10 @@ h6 {
   .navbar .dropdown .dropdown:hover>ul {
     left: -100%;
   }
+}
+
+.navbar .dropdown-item {
+  padding: 10px 30px;
 }
 
 /**

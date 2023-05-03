@@ -17,6 +17,10 @@
                         Olá, &nbsp <span class="active">{{ current_user.username }}</span>
                     </a>
                     <div class="dropdown-menu">
+                        {% if current_user.is_admin %}
+                        <a class="dropdown-item" href="/auth/users_manager">Gerenciar usuários</a>
+                        {% endif %}
+                        <a class="dropdown-item" href="/payment/payments_manager">Gerenciar pagamentos</a>
                         <a class="dropdown-item" href="/auth/logout">Logout</a>
                     </div>
                 </li>
