@@ -17,7 +17,6 @@
 
             {{ form_macros.title("Cadastro de pagamento") }}
             {{ form_macros.input("Data do pagamento", id="date", name="date", type="month", extra_params="min=" + current_month_year) }}
-            <input type="hidden" id="username" name="username" value="{{ current_user.username }}" />
 
             {{ form_macros.button(label='Cadastrar pagamento') }}
 

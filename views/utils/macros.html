@@ -18,8 +18,8 @@
         <label for="{{ id }}" class="form-label">{{ label }}</label>
         <select id="{{ id }}" name="{{ name }}" class="form-control">
             <option value="{{ placeholder }}" selected disabled></option>
-            {% for k, v in options|items %}
-            <option value="{{ v }}">{{ k }}</option>
+            {% for k, v in options|dictsort %}
+            <option value="{{ k }}">{{ v }}</option>
             {% endfor %}
         </select>
     </div>

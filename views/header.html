@@ -18,9 +18,9 @@
                     </a>
                     <div class="dropdown-menu">
                         {% if current_user.is_admin %}
-                        <a class="dropdown-item" href="/auth/users_manager">Gerenciar usuários</a>
+                        <a class="dropdown-item" href="/admin/users_manager">Gerenciar usuários</a>
+                        <a class="dropdown-item" href="/admin/payments_manager">Gerenciar pagamentos</a>
                         {% endif %}
-                        <a class="dropdown-item" href="/payment/payments_manager">Gerenciar pagamentos</a>
                         <a class="dropdown-item" href="/auth/logout">Logout</a>
                     </div>
                 </li>

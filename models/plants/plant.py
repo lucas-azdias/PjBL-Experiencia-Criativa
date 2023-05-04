@@ -8,16 +8,15 @@ class Plant(db.Model):
     name = db.Column(db.String(50), nullable=False)
     min_humidity = db.Column(db.Float(), nullable=False)
 
-    #sensors = db.relationship("Sensor",backref="plants",lazy=True)
 
-    def insert_plant(id_plant, id_sensor, name, min_humidity):
-        
-        plant =  Plant(id_plant=id_plant,id_sensor=id_sensor,name=name,min_humidity=min_humidity)
-
+    def insert_plant(id_sensor, name, min_humidity):
+        plant =  Plant(id_sensor=id_sensor, name=name,
+                       min_humidity=min_humidity)
         db.session.add(plant)
         db.session.commit()
         return plant
     
+
     def select_plant():
         select_plants = Plant.query.all()
         return select_plants

@@ -46,7 +46,7 @@
             {{ form_macros.input("Número de cartão de crédito", id="card_num_card", name="card_num_card", type="text", extra_params="maxlength=16") }}
             {{ form_macros.input("Nome do titular", id="card_name_owner", name="card_name_owner", type="text") }}
             {{ form_macros.input("CVV", id="card_cvv", name="card_cvv", type="text", extra_params="maxlength=3") }}
-            {{ form_macros.input("Data de validade", id="card_expire_date", name="card_expire_date", type="month") }}
+            {{ form_macros.input("Data de validade", id="card_expire_date", name="card_expire_date", type="month", extra_params="min=" + current_month_year) }}
 
             {{ form_macros.button(label='Cadastrar usuário') }}
 
@@ -55,8 +55,6 @@
         {{ form_macros.form_end() }}
 
     {{ form_macros.formdivrow_end() }}
-
-    {{ page_macros.endbutton("Gerenciador de meios de pagamentos", "goTo('/payment/payments_manager')") }}
 
     {{ page_macros.endlabel("Voltar ao início", "/", is_link=true) }}
 </div>
