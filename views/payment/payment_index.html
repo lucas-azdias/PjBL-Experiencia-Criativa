@@ -1,46 +1,47 @@
 {% extends "template.html" %}
 
+{% import "utils/page_macros.html" as page_macros %}
+{% import "utils/form_macros.html" as form_macros %}
+
 {% block title %}
 <title>Listagem de pagamentos</title>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="row my-5 justify-content-center">
-        <div class="col-md-auto">
-            <div id="auth" class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
-                <div class="row my-4">
-                    <div class="col mx-4">
-                        <h3>Listagem de pagamentos</h3>
-                    </div>
-                </div>
-                <div class="row my-4 mb-0 justify-content-center">
-                    <div class="col mx-4">
-                        <ul>
-                            {% if cards|length > 0 %}
-                                {% for k, v in cards|items %}
-                                    {% for card in v %}
-                                        <li>Usuário: {{ k }}; Nome do titular: {{ card[0] }}, ID do cartão: {{ card[1] }}, Data de vencimento: {{ card[2] }}, CVV: {{ card[3] }}</li>
-                                    {% endfor %}
-                                {% endfor %}
-                            {% else %}
-                                <p> Ainda não há dados registrados </p>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-                <div class="row my-4 justify-content-center">
-                    <div class="col-md-auto">
-                        <span><a href="register_payment">Cadastrar pagamento</a></span>
-                    </div>
-                </div>
+    {{ page_macros.flash_verifier() }}
+
+    {{ form_macros.formdivrow_start("payment", col_size="6") }}
+
+        {{ form_macros.title("Listagem de pagamentos") }}
+        <div class="row my-4">
+            <div class="col mx-4">
+                {% if payments|length > 0 %}
+                    <ul>
+                    {% for payment in payments %}
+                        <li>
+                            {{ payment.month }},
+                            {{ payment.year }},
+                            {{ payment.is_paid }},
+                            {{ payment.card_num_card}},
+                            {{ payment.card_name_owner }}, 
+                            {{ payment.card_cvv }},
+                            {{ payment.card_month_expire_date }},
+                            {{ payment.card_year_expire_date }}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <span>Não há pagamentos cadastrados.</span>
+                {% endif %}
             </div>
         </div>
-    </div>
-    <div class="row my-5 justify-content-center">
-        <div class="col-md-auto">
-            <span><a href="/">Voltar ao início</a></span>
-        </div>
-    </div>
+        {{ form_macros.br() }}
+
+    {{ form_macros.formdivrow_end() }}
+
+    {{ page_macros.endbutton("Cadastro de pagamento", "goTo('/payment/register_payment')") }}
+
+    {{ page_macros.endlabel("Voltar ao início", "/", is_link=true) }}
 </div>
 {% endblock %}

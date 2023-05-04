@@ -16,3 +16,14 @@ class Payment(db.Model):
     card_cvv = db.Column(db.String(3), nullable=False)
     card_month_expire_date = db.Column(db.Integer(), nullable=False)
     card_year_expire_date = db.Column(db.Integer(), nullable=False)
+
+
+    def insert_payment(id_user, value, month, year, is_paid, card_num_card, card_name_owner, card_cvv, card_month_expire_date, card_year_expire_date):
+        payment = Payment(id_user=id_user, value=value, month=month,
+                          year=year, is_paid=is_paid, card_num_card=card_num_card,
+                          card_name_owner=card_name_owner, card_cvv=card_cvv,
+                          card_month_expire_date=card_month_expire_date,
+                          card_year_expire_date=card_year_expire_date)
+        db.session.add(payment)
+        db.session.commit()
+        return payment

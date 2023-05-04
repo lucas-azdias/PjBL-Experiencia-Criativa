@@ -11,35 +11,49 @@
 <div class="container">
     {{ page_macros.flash_verifier() }}
 
-    {{ form_macros.formdivrow_start("payment_manager", col_size="6") }}
+    {{ form_macros.formdivrow_start("payments_manager", col_size="6") }}
 
         {{ form_macros.title("Gerenciador de pagamentos") }}
-                <div class="row my-4">
-                    <div class="col mx-4">
-                        {% if cards|length > 0 %}
-                            <ul>
-                            {% for k, v in cards|items %}
-                                {% for card in v %}
-                                    <li><span class="del" onclick="deleteCard('{{ card[0] }}')">X</span> | Usuário: {{ k }}; Nome do titular: {{ card[1] }}, ID do cartão: {{ card[2] }}, Data de vencimento: {{ card[3] }}, CVV: {{ card[4] }}</li>
+        <div class="row my-4">
+            <div class="col mx-4">
+                {% if usernames_payments|length > 0 %}
+                        <ul>
+                        {% for username_payment in usernames_payments %}
+                            <li>{{ username_payment[0] }}</li>
+                            {% if username_payment|length > 0 %}
+                                <ul>
+                                {% for payment in username_payment[1] %}
+                                    <li>
+                                        {{ payment.month }},
+                                        {{ payment.year }},
+                                        {{ payment.is_paid }},
+                                        {{ payment.card_num_card}},
+                                        {{ payment.card_name_owner }}, 
+                                        {{ payment.card_cvv }},
+                                        {{ payment.card_month_expire_date }},
+                                        {{ payment.card_year_expire_date }}
+                                    </li>
                                 {% endfor %}
-                            {% endfor %}
-                            </ul>
-                        {% else %}
-                            <span>Não há pagamentos cadastrados.</span>
-                        {% endif %}
-                    </div>
-                </div>
+                                </ul>
+                            {% else %}
+                                <span>Não há pagamentos desse usuário.</span>
+                            {% endif %}
+                        {% endfor %}
+                        </ul>
+                {% else %}
+                    <span>Não há pagamentos cadastrados no sistema.</span>
+                {% endif %}
+            </div>
+        </div>
         {{ form_macros.br() }}
 
-        {{ form_macros.form_start("form", "add_card") }}
+        {{ form_macros.form_start("form", "add_payment") }}
 
-            {{ form_macros.subtitle("Cadastro de cartão de crédito") }}
-            {{ form_macros.input("Número de cartão de crédito", id="card_num_card", name="card_num_card", type="text", extra_params="maxlength=16") }}
-            {{ form_macros.input("Nome do titular", id="card_name_owner", name="card_name_owner", type="text") }}
-            {{ form_macros.input("CVV", id="card_cvv", name="card_cvv", type="text", extra_params="maxlength=3") }}
-            {{ form_macros.input("Data de validade", id="card_expire_date", name="card_expire_date", type="month") }}
+            {{ form_macros.subtitle("Cadastro de pagamento") }}
+            {{ form_macros.select(usernames_options, label="Nome de usuário", placeholder="", id="username", name="username") }}
+            {{ form_macros.input("Data do pagamento", id="date", name="date", type="month", extra_params="min=" + current_month_year) }}
 
-            {{ form_macros.button(label='Cadastrar usuário') }}
+            {{ form_macros.button(label='Cadastrar pagamento') }}
 
             {{ form_macros.br() }}
 
