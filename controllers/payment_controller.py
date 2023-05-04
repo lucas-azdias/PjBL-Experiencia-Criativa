@@ -61,7 +61,7 @@ def payment_add_payment():
         date_year = None
 
     # Verifica se há alguma informação vazia
-    info = [username, date_month, date_year]
+    info = [date_month, date_year]
     if None in info or "" in info:
         # Informações inválidas
         flash("Informações inválidas", "danger")
@@ -70,7 +70,7 @@ def payment_add_payment():
     # Se haver um usuário com esse username, adiciona o pagamento
     user = User.query.filter_by(username=username).first()
     if user:
-        Payment.insert_payment(user.id_user, value, date_year, date_month, True, user.card_num_card,
+        Payment.insert_payment(user.id_user, value, *info, True, user.card_num_card,
                                user.card_name_owner, user.card_cvv, user.card_month_expire_date, user.card_year_expire_date)
         
         # Pagamento efetuado com sucesso

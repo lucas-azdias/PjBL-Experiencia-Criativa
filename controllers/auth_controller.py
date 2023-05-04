@@ -103,8 +103,8 @@ def auth_add_user():
         is_admin = True if request.form.get("is_admin") == "1" else False
 
     # Verifica se há alguma informação vazia
-    info = [username, name, email, phone, password, confirm_password,
-            is_admin, card_num_card, card_name_owner, card_cvv, card_expire_date]
+    info = [username, name, email, phone, password, is_admin, card_num_card,
+            card_name_owner, card_cvv, card_month_expire_date, card_year_expire_date]
     if None in info or "" in info:
         # Informações inválidas
         flash("Informações inválidas", "danger")
@@ -117,7 +117,7 @@ def auth_add_user():
     hasUsername = username in usernames
     isPasswordConfirmed = password == confirm_password
     if not hasUsername and isPasswordConfirmed:
-        user = User.insert_user(username, name, email, phone, password, is_admin, card_num_card, card_name_owner, card_cvv, card_month_expire_date, card_year_expire_date)
+        user = User.insert_user(*info)
 
         # Registrado com sucesso
         flash("Registrado com sucesso", "success")
