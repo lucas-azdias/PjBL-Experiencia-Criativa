@@ -16,8 +16,8 @@ def add_payment(username, date) -> bool:
 
     date = date.split("-")
     try:
-        date_month = int(date[0])
-        date_year = int(date[1])
+        date_year = int(date[0])
+        date_month = int(date[1])
     except:
         date_month = None
         date_year = None
@@ -48,39 +48,24 @@ def add_payment(username, date) -> bool:
 @login_required
 def payment_index():
     payments = Payment.query.filter_by(id_user=current_user.id_user).all()
-    return render_template("/payment/payment_index.html", payments=payments)
+    payments_info = [[payment.value, f"{payment.year}/{str(payment.month):0>2}", "Pago" if payment.is_paid else "Em aberto", payment.date_payment] for payment in payments]
+    return render_template("/payment/payment_index.html", payments_info=payments_info)
 
 
 @payment.route("/register_payment")
 @login_required
 def payment_register_payment():
     current_month_year = datetime.today().strftime("%Y-%m")
-    return render_template("/payment/payment_register_payment.html", current_month_year=current_month_year)
-
-
-@payment.route("/payments_manager")
-@login_required
-def payment_payments_manager():
-    if current_user.is_admin:
-        users = User.query.all()
-        current_month_year = datetime.today().strftime("%Y-%m")
-        usernames_payments = [(user.username, Payment.query.filter_by(id_user=user.id_user).all()) for user in users]
-        usernames_options = dict()
-        for i in range(len(users)):
-            usernames_options[users[i].username] = users[i].username
-        return render_template("/payment/payment_payments_manager.html", current_month_year=current_month_year, usernames_payments=usernames_payments, usernames_options=usernames_options)
-    else:
-        # Sem permissão necessária
-        flash("Sem permissão necessária", "danger")
-        return redirect(url_for("index"))
+    month_signing_value = str(MONTH_SIGNING_VALUE)
+    return render_template("/payment/payment_register_payment.html", current_month_year=current_month_year, month_signing_value=month_signing_value)
 
 
 @payment.route("/add_payment", methods=["POST"])
 @login_required
 def payment_add_payment():
     username = current_user.username
-    date = request.form.get("date")
+    date = datetime.today().strftime("%Y-%m")
 
     add_payment(username, date)
     
-    return redirect(request.referrer)
+    return redirect(url_for("payment.payment_index"))

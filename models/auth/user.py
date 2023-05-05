@@ -1,5 +1,7 @@
 from models import db, login_manager
 
+from datetime import datetime
+
 
 class User(db.Model):
     __tablename__ = "users"
@@ -10,6 +12,7 @@ class User(db.Model):
     phone = db.Column(db.String(14), nullable=False)
     password = db.Column(db.String(512), nullable=False)
     is_admin = db.Column(db.Boolean(), nullable=False, default=False)
+    date_creation = db.Column(db.Date(), nullable=False, default=datetime.today())
 
     # Cartão de crédito
     card_num_card = db.Column(db.String(16), nullable=False)

@@ -9,7 +9,7 @@ sensors = Blueprint("sensors", __name__, template_folder="./views/", static_fold
 
 @sensors.route('/')
 def index():
-    sensores = Sensor.findSensors(current_user)
+    sensores = current_user.sensors
     return render_template("sensors/sensors_index.html", sensores=sensores, user=current_user)
 
 
