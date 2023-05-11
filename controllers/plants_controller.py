@@ -6,19 +6,16 @@ from models import Sensor, Plant
 plants = Blueprint("plants", __name__, template_folder="./views/", static_folder="./static/", root_path="./")
 
 
-saved_plants = []
-
-
 @plants.route('/')
 def plants_index():
-    saved_plants = Plant.select_plant()
-    return render_template('plants/plants_index.html', saved_plants=saved_plants)
+    plants = Plant.query.all()
+    return render_template('plants/plants_index.html', plants=plants)
 
 
 @plants.route('/register_plant')
 def plants_register_plant():
     sensors = Sensor.query.all()
-    return render_template('plants/plants_register_plant.html', sensors=sensors, saved_plants=saved_plants)
+    return render_template('plants/plants_register_plant.html', sensors=sensors)
 
 # foreign key check fails.
 

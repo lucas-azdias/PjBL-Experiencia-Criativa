@@ -17,7 +17,4 @@ class Plant(db.Model):
         db.session.add(plant)
         db.session.commit()
         return plant
-    
-    def select_plant():
-        select_plants = Plant.query.all()
-        return select_plants
+

@@ -8,13 +8,13 @@
 <div>
     <h2>Listagem das plantas</h2>
     <div id="cards">
-        {% if saved_plants|length > 0 %}
+        {% if plants|length > 0 %}
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                {% for plant in saved_plants %}
+                {% for plant in plants %}
                 <div class="col mb-4">
                     <div class="card card-default">
                         <div class="card-body">
-                            <h5 class="card-title">{{ plant.name_plant }}</h5>
+                            <h5 class="card-title">{{ plant.name }}</h5>
                             <p class="card-text">Sensor: {{ plant.id_sensor }}</p>
                             <p class="card-text">Umidade: {{ plant.min_humidity }}</p>
                         </div>
