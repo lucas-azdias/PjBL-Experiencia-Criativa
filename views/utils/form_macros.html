@@ -1,15 +1,23 @@
 {% import "utils/macros.html" as macros %}
 
-{% macro input(label='', placeholder='', id='', name='', type='text', extra_params='') %}
-    <div class="row my-3">
-        {{ macros.input(label, placeholder, id, name, type, extra_params) }}
+{% macro input(label='', placeholder='', id='', name='', type='text', extra_params='', box_size=12, has_box_size=false, is_start=true, is_end=true) %}
+    {% if is_start %}
+    <div class="row my-3 mx-4 justify-content-around">
+    {% endif %}
+        {{ macros.input(label, placeholder, id, name, type, extra_params, box_size, has_box_size) }}
+    {% if is_end %}
     </div>
+    {% endif %}
 {% endmacro %}
 
-{% macro select(options, label='', placeholder='', id='', name='') %}
-    <div class="row my-3">
-        {{ macros.select(options, label, placeholder, id, name) }}
+{% macro select(options, label='', placeholder='', id='', name='', box_size=12, has_box_size=false, is_start=true, is_end=true) %}
+    {% if is_start %}
+    <div class="row my-3 mx-4">
+    {% endif %}
+        {{ macros.select(options, label, placeholder, id, name, box_size, has_box_size) }}
+    {% if is_end %}
     </div>
+    {% endif %}
 {% endmacro%}
 
 {% macro button(label='', id='', style='center', type='submit') %}

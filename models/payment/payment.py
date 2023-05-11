@@ -1,5 +1,7 @@
 from models import db, User
 
+from datetime import datetime
+
 
 class Payment(db.Model):
     __tablename__ = "payments"
@@ -9,6 +11,7 @@ class Payment(db.Model):
     month = db.Column(db.Integer(), nullable=False)
     year = db.Column(db.Integer(), nullable=False)
     is_paid = db.Column(db.Boolean(), nullable=False)
+    date_payment = db.Column(db.Date(), nullable=False, default=datetime.today())
 
     # Cópia do cartão usado
     card_num_card = db.Column(db.String(16), nullable=False)

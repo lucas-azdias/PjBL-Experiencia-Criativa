@@ -249,7 +249,7 @@ h6 {
 }
 
 .navbar .dropdown-item {
-  padding: 10px 30px;
+  padding: 10px 30px !important;
 }
 
 /**

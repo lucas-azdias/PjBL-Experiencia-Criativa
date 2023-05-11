@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request
 
 from models import Sensor, Plant
 
@@ -22,7 +22,6 @@ def plants_register_plant():
 
 @plants.route('/save_plant', methods=['POST'])
 def plants_save_plant():
-    id_plant = request.form.get("id_plant", None)
     id_sensor = request.form.get("id_sensor", None)
     name = request.form.get("name", None)
     min_humidity = request.form.get("min_humidity", None)
@@ -31,7 +30,7 @@ def plants_save_plant():
     if sensor is None:
         # lidar com erro, como redirecionar para página de erro ou retornar mensagem de erro
         return redirect(url_for("plants.plants_register_plant"))
-    Plant.insert_plant(id_plant, id_sensor, name, min_humidity)
+    Plant.insert_plant(id_sensor, name, min_humidity)
     return redirect(url_for("plants.plants_index"))
 
 
