@@ -10,14 +10,10 @@
 {% block content %}
 <div class="container">
     {{ page_macros.flash_verifier() }}
-    {% if error != 0 %}
-        {% for sensor in sensors %}
-        <li>{{ sensor }}</li>
-        {% endfor %}
 
-    {{ form_macros.formdivrow_start("create", "md-auto") }}
+    {{ form_macros.formdivrow_start("register_sensor", "6") }}
 
-        {{ form_macros.form_start("form", "create_sensor") }}
+        {{ form_macros.form_start("form", "add_sensor") }}
 
             {{ form_macros.title("Inserir Sensor") }}
             {{ form_macros.input("Nome do Sensor", id="name", name="name", type="text") }}
@@ -30,10 +26,7 @@
         {{ form_macros.form_end() }}
 
     {{ form_macros.formdivrow_end() }}
+
     {{ page_macros.endlabel("Voltar ao início", "/", is_link=true) }}
-    {% else %}
-        <p>Salvo com sucesso</p>
-        {{ page_macros.endlabel("Voltar para pagina de sensores", "/sensors", is_link=true) }}
-    {% endif %}
 </div>
 {% endblock %}

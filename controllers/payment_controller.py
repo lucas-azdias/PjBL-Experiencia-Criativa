@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
 
 from models import User, Payment
@@ -33,7 +33,8 @@ def add_payment(username, date) -> bool:
     user = User.query.filter_by(username=username).first()
     if user:
         Payment.insert_payment(user.id_user, value, *info, True, user.card_num_card,
-                               user.card_name_owner, user.card_cvv, user.card_month_expire_date, user.card_year_expire_date)
+                               user.card_name_owner, user.card_cvv, user.card_month_expire_date, 
+                               user.card_year_expire_date)
         
         # Pagamento efetuado com sucesso
         flash("Pagamento efetuado com sucesso", "success")
@@ -48,7 +49,14 @@ def add_payment(username, date) -> bool:
 @login_required
 def payment_index():
     payments = Payment.query.filter_by(id_user=current_user.id_user).all()
-    payments_info = [[payment.value, f"{payment.year}/{str(payment.month):0>2}", "Pago" if payment.is_paid else "Em aberto", payment.date_payment] for payment in payments]
+    payments_info = [
+        [
+            payment.value,
+            f"{payment.year}/{str(payment.month):0>2}",
+            "Pago" if payment.is_paid else "Em aberto",
+            payment.date_payment
+        ] for payment in payments
+    ]
     return render_template("/payment/payment_index.html", payments_info=payments_info)
 
 

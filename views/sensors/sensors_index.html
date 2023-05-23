@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block content %}
-
 <div class="d-block">
     <h2>Listagem dos Sensores Ativos de {{ (user.username).capitalize() }}</h2>
     <ul>
@@ -18,7 +17,7 @@
         {% endif %}
     </ul>
     <br>
-    <span><a href="create_sensor">Inserir sensor</a></span> <br>
-    <span><a href="sensors_select">Verificar os registros</a></span> <br>
-</div
+    <span><a href="register_sensor">Registrar sensor</a></span> <br>
+    <span><a href="list_sensors">Listar os sensores</a></span> <br>
+</div>
 {% endblock content %}

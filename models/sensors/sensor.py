@@ -25,3 +25,13 @@ class Sensor(db.Model):
         db.session.add(sensor)
         db.session.commit()
         return sensor
+
+
+    def get_sensors():
+        sensors = Sensor.query.all()
+        return sensors
+
+
+    def get_sensors_by_id_user(id_user):
+        sensors = Sensor.query.filter_by(id_user=id_user).all()
+        return sensors

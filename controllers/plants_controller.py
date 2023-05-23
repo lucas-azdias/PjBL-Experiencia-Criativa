@@ -8,7 +8,8 @@ plants = Blueprint("plants", __name__, template_folder="./views/", static_folder
 
 @plants.route('/')
 def plants_index():
-    plants = Plant.query.all()
+    plants = Plant.query.join(Sensor, Sensor.id_sensor == Plant.id_sensor)\
+             .add_columns(Plant.name, Sensor.name, Sensor.id_sensor, Plant.min_humidity).all()
     return render_template('plants/plants_index.html', plants=plants)
 
 
@@ -17,15 +18,12 @@ def plants_register_plant():
     sensors = Sensor.query.all()
     return render_template('plants/plants_register_plant.html', sensors=sensors)
 
-# foreign key check fails.
-
 
 @plants.route('/save_plant', methods=['POST'])
 def plants_save_plant():
-    id_sensor = request.form.get("id_sensor", None)
-    name = request.form.get("name", None)
-    min_humidity = request.form.get("min_humidity", None)
-    id_sensor = request.form.get("sensor", None)
+    id_sensor = request.form.get("id_sensor")
+    name = request.form.get("name")
+    min_humidity = request.form.get("min_humidity")
     sensor = Sensor.query.get(id_sensor)
     if sensor is None:
         # lidar com erro, como redirecionar para página de erro ou retornar mensagem de erro

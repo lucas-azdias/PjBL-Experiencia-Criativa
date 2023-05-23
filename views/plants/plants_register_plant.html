@@ -10,12 +10,12 @@
     <h2>Cadastrar planta</h2>
     <form action = "save_plant" method = "POST">
         <div>
-            <label for="nome_planta" class="form-label">Nome da planta</label>
+            <label for="name" class="form-label">Nome da planta</label>
             <input type="text" id="name" name="name" class="form-control">
         </div>
         <div>   
-            <label for="sensor" class="form-label">Selecione o sensor</label>
-            <select id="sensor" name="sensor" class="form-control">
+            <label for="id_sensor" class="form-label">Selecione o sensor</label>
+            <select id="id_sensor" name="id_sensor" class="form-control">
                 <option value="" selected disabled></option>
                 {% for sensor in sensors %}
                     <option value="{{ sensor.id_sensor }}">{{ sensor.name }}</option>
@@ -23,7 +23,7 @@
             </select>
         </div>
         <div>
-            <label for="umidade" class="form-label">Umidade mínima</label>
+            <label for="min_humidity" class="form-label">Umidade mínima</label>
             <input type="text" id="min_humidity" name="min_humidity" class="form-control">
         </div>
         <div>

@@ -6,12 +6,13 @@
 
 {% block content %}
 <div class="container">
+    {{ page_macros.flash_verifier() }}
     <div class="container forms shadow-sm p-3 bg-white border border-secondary rounded">
     <form action="sensors_select" method="POST">
       <div class="form-group">
         {% if sensors != None %}
-        <label for="escolha">Escolha uma opção:</label>
-        <select class="form-control" id="escolha" name="escolha">
+        <label for="choice">Escolha uma opção:</label>
+        <select class="form-control" id="choice" name="choice">
             <option value="{{ None }}">Selecione o Sensor</option>
               {% for sensor in sensors %}
                   <option value="{{ sensor }}"> {{ sensor.name }} </option>

@@ -15,4 +15,3 @@ class Plant(db.Model):
         db.session.add(plant)
         db.session.commit()
         return plant
-
