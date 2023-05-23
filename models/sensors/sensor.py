@@ -27,11 +27,11 @@ class Sensor(db.Model):
         return sensor
 
 
+    def get_sensor(id_sensor):
+        sensor = Sensor.query.filter_by(id_sensor=id_sensor).first()
+        return sensor
+
+
     def get_sensors():
         sensors = Sensor.query.all()
-        return sensors
-
-
-    def get_sensors_by_id_user(id_user):
-        sensors = Sensor.query.filter_by(id_user=id_user).all()
         return sensors

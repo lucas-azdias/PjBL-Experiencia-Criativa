@@ -61,3 +61,8 @@ class User(db.Model):
         db.session.add(user)
         db.session.commit()
         return user
+
+
+    def get_users():
+        users = User.query.all()
+        return users

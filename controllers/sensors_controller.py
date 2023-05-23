@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 
-from models import Sensor, User
+from models import Sensor, Record
 
 
 sensors = Blueprint("sensors", __name__, template_folder="./views/", static_folder="./static/", root_path="./")
@@ -9,20 +9,28 @@ sensors = Blueprint("sensors", __name__, template_folder="./views/", static_fold
 
 @sensors.route('/')
 def sensors_index():
-    sensores = current_user.sensors
-    return render_template("sensors/sensors_index.html", sensores=sensores, user=current_user)
+    sensors = current_user.sensors
+    return render_template("sensors/sensors_index.html", sensors=sensors)
 
 
-@sensors.route('/list_sensors')
+@sensors.route('/show_records')
 @login_required
-def sensors_list_sensors():
-    sensors = Sensor.get_sensors_by_id_user(current_user.id_user)
-    resultado = request.form.get("choice")
-    
-    if(str(resultado) == "None"):
-        return render_template("sensors/sensors_list_sensors.html", sensors=sensors)
+def sensors_show_records():
+    sensors = current_user.sensors
+
+    id_sensor = request.args.get("id_sensor_selected")
+
+    if not id_sensor:
+        records = None
     else:
-        return render_template("sensors/sensors_list_sensors.html", sensors=sensors, resultado=resultado)
+        try:
+            records = []
+            for record in Sensor.get_sensor(int(id_sensor)).records:
+                records.append(record)
+        except:
+            records = None
+
+    return render_template("sensors/sensors_show_records.html", sensors=sensors, records=records)
 
 
 @sensors.route('/register_sensor')
@@ -34,19 +42,35 @@ def sensors_register_sensor():
 @sensors.route('/add_sensor', methods=['POST'])
 @login_required
 def sensors_add_sensor():
-    id_user = User.query.filter_by(username=current_user.username).first().id_user
     name = request.form.get("name")
     model = request.form.get("model")
     brand = request.form.get("brand")
     measure = request.form.get("measure")
     voltage = request.form.get("voltage")
 
-    info = [id_user, name, model, brand, measure, voltage]
+    info = [name, model, brand, measure, voltage]
 
     if not None in info:
-        Sensor.insert_sensor(*info)
+        sensor = Sensor.insert_sensor(current_user.id_user, *info)
         flash("Cadastrado com sucesso", "success")
-        return redirect(url_for("sensors.sensors_list_sensors"))
+        return redirect(url_for("sensors.sensors_show_records") + "?id_sensor_selected=" + str(sensor.id_sensor))
     else:
         flash("Erro no cadastro", "danger")
         return redirect(url_for("sensors.sensors_add_sensor"))
+
+
+@sensors.route('/add_record', methods=['POST'])
+@login_required
+def sensors_add_record():
+    id_sensor = request.form.get("id_sensor")
+    value = request.form.get("value")
+
+    info = [id_sensor, value]
+
+    if not None in info:
+        Record.insert_record(*info, None)
+        flash("Cadastrado com sucesso", "success")
+        return redirect(url_for("sensors.sensors_show_records") + "?id_sensor_selected=" + str(id_sensor))
+    else:
+        flash("Erro no cadastro", "danger")
+        return redirect(url_for("sensors.sensors_show_records"))

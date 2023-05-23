@@ -11,8 +11,18 @@ class Record(db.Model):
     register_date = db.Column(db.DateTime(), nullable=False, default=datetime.now())
 
 
-    def insert_record(id_record, id_sensor, value, register_date):
-        record = Record(id_record=id_record, id_sensor=id_sensor, value=value)
+    def insert_record(id_sensor, value, register_date):
+        record = Record(id_sensor=id_sensor, value=value, register_date=register_date)
         db.session.add(record)
         db.session.commit()
         return record
+
+
+    def get_record(id_record):
+        record = Record.query.filter_by(id_record=id_record).first()
+        return record
+
+
+    def get_records():
+        records = Record.query.all()
+        return records
