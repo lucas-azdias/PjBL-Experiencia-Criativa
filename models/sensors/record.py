@@ -11,7 +11,9 @@ class Record(db.Model):
     register_date = db.Column(db.DateTime(), nullable=False, default=datetime.now())
 
 
-    def insert_record(id_sensor, value, register_date):
+    def insert_record(id_sensor, value, register_date=None):
+        if not register_date:
+            register_date = datetime.now()
         record = Record(id_sensor=id_sensor, value=value, register_date=register_date)
         db.session.add(record)
         db.session.commit()
