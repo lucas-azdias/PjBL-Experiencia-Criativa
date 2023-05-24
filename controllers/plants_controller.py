@@ -8,14 +8,13 @@ plants = Blueprint("plants", __name__, template_folder="./views/", static_folder
 
 @plants.route('/')
 def plants_index():
-    plants = Plant.query.join(Sensor, Sensor.id_sensor == Plant.id_sensor)\
-             .add_columns(Plant.name, Sensor.name, Sensor.id_sensor, Plant.min_humidity).all()
+    plants = Plant.get_plants()
     return render_template('plants/plants_index.html', plants=plants)
 
 
 @plants.route('/register_plant')
 def plants_register_plant():
-    sensors = Sensor.query.all()
+    sensors = Sensor.get_sensors()
     return render_template('plants/plants_register_plant.html', sensors=sensors)
 
 
@@ -24,7 +23,7 @@ def plants_save_plant():
     id_sensor = request.form.get("id_sensor")
     name = request.form.get("name")
     min_humidity = request.form.get("min_humidity")
-    sensor = Sensor.query.get(id_sensor)
+    sensor = Sensor.get_sensor(id_sensor)
     if sensor is None:
         # lidar com erro, como redirecionar para página de erro ou retornar mensagem de erro
         return redirect(url_for("plants.plants_register_plant"))

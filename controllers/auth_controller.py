@@ -30,7 +30,7 @@ def add_user(username, name, email, phone, password, confirm_password, is_admin,
         return False
 
     # Pega todos os usernames
-    usernames = [user.username for user in User.query.all()]
+    usernames = [user.username for user in User.get_users()]
 
     # Se não haver repetição de username e senha for confirmada, adiciona usuário
     hasUsername = username in usernames
@@ -71,7 +71,7 @@ def auth_login():
     username = request.form.get("username")
     password = request.form.get("password")
 
-    user = User.query.filter_by(username=username).first()
+    user = User.get_user_by_username(username)
 
     if not user or not user.verify_password(password):
         # Nome de usuário e/ou senha incorretos

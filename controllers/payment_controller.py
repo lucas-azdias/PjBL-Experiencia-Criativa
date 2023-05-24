@@ -30,7 +30,7 @@ def add_payment(username, date) -> bool:
         return False
 
     # Se haver um usuário com esse username, adiciona o pagamento
-    user = User.query.filter_by(username=username).first()
+    user = User.get_user_by_username(username)
     if user:
         Payment.insert_payment(user.id_user, value, *info, True, user.card_num_card,
                                user.card_name_owner, user.card_cvv, user.card_month_expire_date, 
@@ -48,7 +48,7 @@ def add_payment(username, date) -> bool:
 @payment.route("/")
 @login_required
 def payment_index():
-    payments = Payment.query.filter_by(id_user=current_user.id_user).all()
+    payments = User.get_user(current_user.id_user).payments
     payments_info = [
         [
             payment.value,

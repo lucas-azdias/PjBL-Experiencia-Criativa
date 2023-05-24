@@ -15,3 +15,17 @@ class Plant(db.Model):
         db.session.add(plant)
         db.session.commit()
         return plant
+
+
+    def get_plant(id_plant):
+        plant = Plant.query.join(Sensor, Sensor.id_sensor == Plant.id_sensor)\
+            .add_columns(Plant.id_plant, Plant.name, Plant.min_humidity, Sensor.id_sensor, Sensor.name.label("name_sensor"))\
+            .filter_by(id_plant=id_plant).first()
+        return plant
+
+
+    def get_plants():
+        plants = Plant.query.join(Sensor, Sensor.id_sensor == Plant.id_sensor)\
+            .add_columns(Plant.id_plant, Plant.name, Plant.min_humidity, Sensor.id_sensor, Sensor.name.label("name_sensor"))\
+            .all()
+        return plants

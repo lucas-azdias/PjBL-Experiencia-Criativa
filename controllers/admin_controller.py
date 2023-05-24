@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from controllers.auth_controller import add_user
 from controllers.payment_controller import add_payment
 
-from models import User, Payment
+from models import User
 
 from datetime import datetime
 
@@ -21,7 +21,7 @@ def admin_index():
 @login_required
 def admin_users_manager():
     if current_user.is_admin:
-        users = User.query.all()
+        users = User.get_users()
         users_info = [
             [
                 user.name, user.username, user.email, user.phone,
@@ -73,24 +73,22 @@ def admin_add_user():
 @login_required
 def admin_payments_manager():
     if current_user.is_admin:
-        users_payments = Payment.query.join(User, User.id_user == Payment.id_user)\
-            .add_columns(User.username, Payment.value, Payment.year, Payment.month,
-                         Payment.is_paid, Payment.date_payment, Payment.card_num_card,
-                         Payment.card_name_owner, Payment.card_cvv, Payment.card_year_expire_date,
-                         Payment.card_month_expire_date).all()
+        users_payments_info = []
+        for user in User.get_users():
+            for payment in user.payments:
+                users_payments_info.append([
+                    user.username,
+                    payment.value,
+                    f"{payment.year}/{str(payment.month):0>2}",
+                    "Pago" if payment.is_paid else "Em aberto",
+                    payment.date_payment,
+                    payment.card_num_card,
+                    payment.card_name_owner,
+                    payment.card_cvv,
+                    f"{payment.card_year_expire_date}/{str(payment.card_month_expire_date):0>2}"
+                ])
         
-        users_payments_info = [
-            [
-                user_payment.username, user_payment.value,
-                f"{user_payment.year}/{str(user_payment.month):0>2}",
-                "Pago" if user_payment.is_paid else "Em aberto",
-                user_payment.date_payment, user_payment.card_num_card,
-                user_payment.card_name_owner, user_payment.card_cvv,
-                f"{user_payment.card_year_expire_date}/{str(user_payment.card_month_expire_date):0>2}"
-            ] for user_payment in users_payments
-        ]
-        
-        users = User.query.all()
+        users = User.get_users()
         usernames_options = dict()
         for i in range(len(users)):
             usernames_options[users[i].username] = f"{users[i].name} ({users[i].username})"

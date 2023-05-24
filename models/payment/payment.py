@@ -30,3 +30,13 @@ class Payment(db.Model):
         db.session.add(payment)
         db.session.commit()
         return payment
+
+
+    def get_payment(id_payment):
+        payment = Payment.query.filter_by(id_payment=id_payment).first()
+        return payment
+
+
+    def get_payments():
+        payments = Payment.query.all()
+        return payments
