@@ -6,6 +6,9 @@
 
 {% block content %}
 <div>
+    <div>
+        <p><a href="register_plant">Cadastrar planta</a></p>
+    </div>
     <h2>Listagem das plantas</h2>
     <div id="cards">
         {% if plants|length > 0 %}
@@ -14,6 +17,7 @@
                 <div class="col mb-4">
                     <div class="card card-default">
                         <div class="card-body">
+                            <p class="card-text"><a href="{{ url_for('plants.show_plant', id_plant=plant.id_plant) }}">Update</a></p>
                             <h5 class="card-title">{{ plant.name }}</h5>
                             <p class="card-text">Sensor: {{ plant.name_sensor }} ({{ plant.id_sensor }})</p>
                             <p class="card-text">Umidade: {{ plant.min_humidity }}</p>
@@ -25,9 +29,6 @@
         {% else %}
             <p> Ainda não há plantas registradas </p>
         {% endif %}
-    </div>
-    <div>
-        <p><a href="register_plant">Cadastrar planta</a></p>
     </div>
 </div>
 {% endblock content %}

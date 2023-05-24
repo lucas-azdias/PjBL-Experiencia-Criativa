@@ -1,0 +1,20 @@
+{% extends "template.html" %}
+
+{% block title %}
+<title>Update: {{ plant.name }}</title>
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <div>
+        <p><a href=".">Voltar ao menu de plantas</a></p>
+    </div>
+    <div id="cards">
+        <h1>{{ plant.name }}</h1>
+        <p>Sensor: {{ plant.name_sensor }} ({{ plant.id_sensor }})</p>
+        <p>Umidade: {{ plant.min_humidity }}</p>            
+    </div>
+</div>
+
+{% endblock content %}

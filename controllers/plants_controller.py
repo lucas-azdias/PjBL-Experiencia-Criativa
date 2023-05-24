@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 
-from models import Sensor, Plant
+from models import Sensor, Plant, db
 
 
 plants = Blueprint("plants", __name__, template_folder="./views/", static_folder="./static/", root_path="./")
@@ -34,17 +34,9 @@ def plants_save_plant():
         return redirect(url_for("plants.plants_register_plant"))
 
 
-''' 
-@plants.route('/save_plant', methods=['POST'])
+@plants.route('/<int:id_plant>')
+def show_plant(id_plant):
+    plant = Plant.query.get(id_plant)
+    return render_template('plants/plants_update_plant.html', plant=plant)
 
-def plants_save_plant():
-    plant_data = {
-    'nome_planta': request.form.get("nome_planta"),
-    'sensor': request.form.get("sensor"),
-    'umidade': request.form.get("umidade")
-    }
-    global saved_plants
-    saved_plants.append(plant_data)
-    #saved_plants.append("Planta " + nome_planta + ", Sensor " + sensor + ", Umidade mínima " + umidade)
-    return redirect(url_for("plants.plants_index"))
-'''
+
