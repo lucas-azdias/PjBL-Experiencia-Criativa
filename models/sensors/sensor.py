@@ -19,7 +19,9 @@ class Sensor(db.Model):
     plants = db.relationship("Plant", backref="sensors", lazy=True)
 
 
-    def insert_sensor(id_user, name, model, brand, measure, voltage):
+    def insert_sensor(id_user, name, model, brand, measure, voltage, register_date=None):
+        if not register_date:
+            register_date = datetime.now()
         sensor = Sensor(id_user=id_user, name=name, model=model,
                         brand=brand, measure=measure, voltage=voltage)
         db.session.add(sensor)
