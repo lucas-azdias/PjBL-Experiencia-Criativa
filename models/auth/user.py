@@ -52,7 +52,9 @@ class User(db.Model):
         return self.password == password
     
 
-    def insert_user(username, name, email, phone, password, is_admin, card_num_card, card_name_owner, card_cvv, card_month_expire_date, card_year_expire_date):
+    def insert_user(username, name, email, phone, password, is_admin, card_num_card, card_name_owner, card_cvv, card_month_expire_date, card_year_expire_date, date_creation=None):
+        if not date_creation:
+            date_creation = datetime.today()
         user = User(username=username, name=name, email=email,
                     phone=phone, password=password, is_admin=is_admin,
                     card_num_card=card_num_card, card_name_owner=card_name_owner,
