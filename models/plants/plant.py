@@ -38,12 +38,16 @@ class Plant(db.Model):
         plants = Plant.query.all()
         return plants
 
-
+    ''' 
     def get_plants_joined(id_plant):
         return Plant.query.join(Sensor, Sensor.id_sensor == Plant.id_sensor)\
             .add_columns(Plant.id_plant, Plant.name, Plant.min_humidity, Sensor.id_sensor, Sensor.name.label("name_sensor"))\
             .filter_by(id_plant=id_plant)
+    '''
     
+    def get_plants_joined():
+        return Plant.query.join(Sensor, Sensor.id_sensor == Plant.id_sensor)\
+            .add_columns(Plant.id_plant, Plant.name, Plant.min_humidity, Sensor.id_sensor, Sensor.name.label("name_sensor"))
 
     def delete_plant(id_plant):
         plant = Plant.get_plant(id_plant)

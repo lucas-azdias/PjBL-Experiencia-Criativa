@@ -90,3 +90,14 @@
         </div>
     </div>
 {% endmacro %}
+
+
+{% macro render_sensor_select(sensors) %}
+    <label for="id_sensor" class="form-label">Selecione o sensor</label>
+    <select id="id_sensor" name="id_sensor" class="form-control">
+        <option value="" selected disabled></option>
+        {% for sensor in sensors %}
+            <option value="{{ sensor.id_sensor }}">{{ sensor.name }}</option>
+        {% endfor %}
+    </select>
+{% endmacro %}
