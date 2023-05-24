@@ -93,6 +93,8 @@
 
 
 {% macro render_sensor_select(sensors) %}
+<div class="row my-3 mx-4 justify-content-around">
+    <div class="col-md-0 offset-md-0">
     <label for="id_sensor" class="form-label">Selecione o sensor</label>
     <select id="id_sensor" name="id_sensor" class="form-control">
         <option value="" selected disabled></option>
@@ -100,4 +102,6 @@
             <option value="{{ sensor.id_sensor }}">{{ sensor.name }}</option>
         {% endfor %}
     </select>
+    </div>
+</div>
 {% endmacro %}
