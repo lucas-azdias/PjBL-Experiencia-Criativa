@@ -16,6 +16,18 @@ class Record(db.Model):
         db.session.add(record)
         db.session.commit()
         return record
+    
+
+    def update_record(id_record, id_sensor=None, value=None, register_date=None):
+        record = Record.get_record(id_record)
+        if id_sensor:
+            record.id_sensor = id_sensor
+        if value:
+            record.value = value
+        if register_date:
+            record.register_date = register_date
+        db.session.commit()
+        return record
 
 
     def get_record(id_record):
@@ -26,3 +38,9 @@ class Record(db.Model):
     def get_records():
         records = Record.query.all()
         return records
+    
+
+    def delete_record(id_record):
+        record = Record.get_record(id_record)
+        record.delete()
+        db.session.commit()

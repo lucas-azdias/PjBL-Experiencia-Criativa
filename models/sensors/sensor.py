@@ -25,6 +25,24 @@ class Sensor(db.Model):
         db.session.add(sensor)
         db.session.commit()
         return sensor
+    
+
+    def update_sensor(id_sensor, id_user=None, name=None, model=None, brand=None, measure=None, voltage=None):
+        sensor = Sensor.get_sensor(id_sensor)
+        if id_user:
+            sensor.id_user = id_user
+        if name:
+            sensor.name = name
+        if model:
+            sensor.model = model
+        if brand:
+            sensor.brand = brand
+        if measure:
+            sensor.measure = measure
+        if voltage:
+            sensor.voltage = voltage
+        db.session.commit()
+        return sensor
 
 
     def get_sensor(id_sensor):
@@ -35,3 +53,9 @@ class Sensor(db.Model):
     def get_sensors():
         sensors = Sensor.query.all()
         return sensors
+    
+
+    def delete_sensor(id_sensor):
+        sensor = Sensor.get_sensor(id_sensor)
+        sensor.delete()
+        db.session.commit()

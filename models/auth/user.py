@@ -61,6 +61,34 @@ class User(db.Model):
         db.session.add(user)
         db.session.commit()
         return user
+    
+
+    def update_user(id_user, username=None, name=None, email=None, phone=None, password=None, is_admin=None, card_num_card=None, card_name_owner=None, card_cvv=None, card_month_expire_date=None, card_year_expire_date=None):
+        user = User.get_user(id_user)
+        if username:
+            user.username = username
+        if name:
+            user.name = name
+        if email:
+            user.email = email
+        if phone:
+            user.phone = phone
+        if password:
+            user.password = password
+        if is_admin:
+            user.is_admin = is_admin
+        if card_num_card:
+            user.card_num_card = card_num_card
+        if card_name_owner:
+            user.card_name_owner = card_name_owner
+        if card_cvv:
+            user.card_cvv = card_cvv
+        if card_month_expire_date:
+            user.card_month_expire_date = card_month_expire_date
+        if card_year_expire_date:
+            user.card_year_expire_date = card_year_expire_date
+        db.session.commit()
+        return user
 
 
     def get_users():
@@ -71,3 +99,9 @@ class User(db.Model):
     def get_user_by_username(username):
         user = User.query.filter_by(username=username).first()
         return user
+    
+
+    def delete_user(id_user):
+        user = User.get_user(id_user)
+        user.delete()
+        db.session.commit()

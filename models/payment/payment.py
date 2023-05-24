@@ -30,6 +30,32 @@ class Payment(db.Model):
         db.session.add(payment)
         db.session.commit()
         return payment
+    
+
+    def update_payment(id_payment, id_user=None, value=None, month=None, year=None, is_paid=None, card_num_card=None, card_name_owner=None, card_cvv=None, card_month_expire_date=None, card_year_expire_date=None):
+        payment = Payment.get_payment(id_payment)
+        if id_user:
+            payment.id_user = id_user
+        if value:
+            payment.value = value
+        if month:
+            payment.month = month
+        if year:
+            payment.year = year
+        if is_paid:
+            payment.is_paid = is_paid
+        if card_num_card:
+            payment.card_num_card = card_num_card
+        if card_name_owner:
+            payment.card_name_owner = card_name_owner
+        if card_cvv:
+            payment.card_cvv = card_cvv
+        if card_month_expire_date:
+            payment.card_month_expire_date = card_month_expire_date
+        if card_year_expire_date:
+            payment.card_year_expire_date = card_year_expire_date
+        db.session.commit()
+        return payment
 
 
     def get_payment(id_payment):
@@ -40,3 +66,9 @@ class Payment(db.Model):
     def get_payments():
         payments = Payment.query.all()
         return payments
+    
+
+    def delete_payment(id_payment):
+        payment = Payment.get_payment(id_payment)
+        payment.delete()
+        db.session.commit()
