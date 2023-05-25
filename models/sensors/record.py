@@ -20,14 +20,20 @@ class Record(db.Model):
         return record
     
 
-    def update_record(id_record, id_sensor=None, value=None, register_date=None):
+    def update_record(id_record = None, id_sensor=None, value=None, register_date=None):
+
         record = Record.get_record(id_record)
+
         if id_sensor:
             record.id_sensor = id_sensor
         if value:
             record.value = value
         if register_date:
             record.register_date = register_date
+        if register_date:
+            record.register_date =  register_date
+        else:
+            record.register_date = datetime.now()
         db.session.commit()
         return record
 
@@ -46,3 +52,8 @@ class Record(db.Model):
         record = Record.get_record(id_record)
         record.delete()
         db.session.commit()
+
+
+    def get_record_by_sensor(id_sensor):
+        record = Record.query.filter_by(id_sensor=id_sensor).first()
+        return record

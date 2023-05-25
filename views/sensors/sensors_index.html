@@ -1,5 +1,5 @@
 {% extends "template.html" %}
-
+{% import "utils/page_macros.html" as page_macros %}
 {% block title %}
 <title>Seus Sensores</title>
 {% endblock %}
@@ -7,6 +7,7 @@
 {% block content %}
 <div class="d-block">
     <h2>Listagem dos Sensores Ativos de {{ (current_user.username).upper() }}</h2>
+    {{ page_macros.flash_verifier() }}
     <ul>
         {% if sensors|length > 0 %}
             {% for sensor in sensors %}
@@ -19,5 +20,7 @@
     <br>
     <span><a href="register_sensor">Registrar sensor</a></span> <br>
     <span><a href="show_records">Listar os registros dos sensores</a></span> <br>
+    <span><a href="select_sensor">Atualizar sensor</a></span> <br>
+
 </div>
 {% endblock content %}

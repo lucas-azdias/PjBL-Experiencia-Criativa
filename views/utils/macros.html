@@ -1,11 +1,11 @@
-{% macro input(label='', placeholder='', id='', name='', type='text', extra_params="", box_size=12, has_box_size=false) %}
+{% macro input(label='', placeholder='', id='', name='', type='text', extra_params="", value = '', box_size=12, has_box_size=false) %}
     {% if not has_box_size %}
     <div class="col">
     {% else %}
     <div class="col-{{ box_size }}">
     {% endif %}
         <label for="{{ id }}" class="form-label">{{ label }}</label>
-        <input placeholder="{{ placeholder }}" type="{{ type }}" class="form-control" id="{{ id }}" name="{{ name }}" required {{ extra_params }}>
+        <input placeholder="{{ placeholder }}" type="{{ type }}" class="form-control" id="{{ id }}" name="{{ name }}" value = "{{ value }}" required {{ extra_params }}>
     </div>
 {% endmacro %}
 

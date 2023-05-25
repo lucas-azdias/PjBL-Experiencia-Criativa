@@ -39,7 +39,7 @@
                     <ul>
                         <p class="text-left mb-0 "> Registros anteriores </p>
                         {% for record in records %}
-                        <li>{{ record.register_date }}</li>
+                        <li>{{ record.register_date }} ID: {{record.id_record}}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -62,6 +62,23 @@
         {{ form_macros.input("Valor", id="value", name="value", type="number") }}
         <button type="submit">Cadastrar registro</button>
       </form>
+
+
+      {% if records != None %}
+        {% if records|length >= 1 %}
+          <form action="update_record" method="POST">
+            {{ form_macros.title("Atualizar um regsitro no sensor") }}
+            <select class="form-control" id="id_record" name="id_record">
+              <option value="" selected disabled>Selecione o Sensor</option>
+              {% for record in records %}
+              <option value="{{ record.id_record }}"> {{ record.id_record }}</option>
+              {% endfor %}
+            </select>
+            {{ form_macros.input("Valor", id="value", name="value", type="number") }}
+            <button type="submit">Cadastrar registro</button>
+          </form>
+        {% endif %}
+      {% endif %}
       {% endif %}
       
     </div>

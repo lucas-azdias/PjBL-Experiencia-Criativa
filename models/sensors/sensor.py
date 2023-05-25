@@ -29,8 +29,11 @@ class Sensor(db.Model):
         return sensor
     
 
+
     def update_sensor(id_sensor, id_user=None, name=None, model=None, brand=None, measure=None, voltage=None):
+
         sensor = Sensor.get_sensor(id_sensor)
+
         if id_user:
             sensor.id_user = id_user
         if name:
@@ -43,6 +46,7 @@ class Sensor(db.Model):
             sensor.measure = measure
         if voltage:
             sensor.voltage = voltage
+        
         db.session.commit()
         return sensor
 
@@ -61,3 +65,8 @@ class Sensor(db.Model):
         sensor = Sensor.get_sensor(id_sensor)
         sensor.delete()
         db.session.commit()
+
+
+    def get_by_name(name):
+        sensor = Sensor.query.filter_by(name=name).first()
+        return sensor
