@@ -16,8 +16,8 @@ class Plant(db.Model):
         db.session.commit()
         return plant
     
-
-    def update_plant(id_plant, id_sensor=None, name=None, min_humidity=None):
+    ''' 
+    def update_plant(id_plant, id_sensor, name, min_humidity):
         plant = Plant.get_plant(id_plant)
         if id_sensor:
             plant.id_sensor = id_sensor
@@ -27,7 +27,18 @@ class Plant(db.Model):
             plant.min_humidity = min_humidity
         db.session.commit()
         return plant
+    '''
+    def update_plant(id_plant, name, id_sensor, min_humidity):
+        plant = Plant.query.get(id_plant)
 
+        if plant:
+            plant.name = name
+            plant.id_sensor = id_sensor
+            plant.min_humidity = min_humidity
+            db.session.commit()
+            return plant
+        else:
+            return False
 
     def get_plant(id_plant):
         plant = Plant.query.filter_by(id_plant=id_plant).first()
@@ -43,13 +54,18 @@ class Plant(db.Model):
         return Plant.query.join(Sensor, Sensor.id_sensor == Plant.id_sensor)\
             .add_columns(Plant.id_plant, Plant.name, Plant.min_humidity, Sensor.id_sensor, Sensor.name.label("name_sensor"))\
             .filter_by(id_plant=id_plant)
-    '''
     
+    '''
     def get_plants_joined():
         return Plant.query.join(Sensor, Sensor.id_sensor == Plant.id_sensor)\
             .add_columns(Plant.id_plant, Plant.name, Plant.min_humidity, Sensor.id_sensor, Sensor.name.label("name_sensor"))
-
+   
     def delete_plant(id_plant):
-        plant = Plant.get_plant(id_plant)
-        plant.delete()
-        db.session.commit()
+        try:
+            plant = Plant.query.get(id_plant)
+            db.session.delete(plant)
+            db.session.commit()
+            return True
+        except:
+            return False
+       
