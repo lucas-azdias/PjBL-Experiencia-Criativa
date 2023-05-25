@@ -1,14 +1,13 @@
 {% import "utils/macros.html" as macros %}
-
-{% macro input(label='', placeholder='', id='', name='', type='text', extra_params='', box_size=12, has_box_size=false, is_start=true, is_end=true) %}
-    {% if is_start %}
+{% macro input(label='', id='', name='', value='', type='text', readonly=false) %}
     <div class="row my-3 mx-4 justify-content-around">
-    {% endif %}
-        {{ macros.input(label, placeholder, id, name, type, extra_params, box_size, has_box_size) }}
-    {% if is_end %}
+        <div class="col">
+            <label for="{{ id }}" class="form-label">{{ label }}</label>
+            <input type="{{ type }}" id="{{ id }}" name="{{ name }}" class="form-control" value="{{ value }}" {% if readonly %}readonly{% endif %}>
+        </div>
     </div>
-    {% endif %}
 {% endmacro %}
+
 
 {% macro select(options, label='', placeholder='', id='', name='', box_size=12, has_box_size=false, is_start=true, is_end=true) %}
     {% if is_start %}
@@ -91,17 +90,21 @@
     </div>
 {% endmacro %}
 
-
-{% macro render_sensor_select(sensors) %}
+{% macro render_sensor_select(sensors, selected_sensor) %}
 <div class="row my-3 mx-4 justify-content-around">
+    <a>{{  selected_sensor }} </a>
     <div class="col-md-0 offset-md-0">
-    <label for="id_sensor" class="form-label">Selecione o sensor</label>
-    <select id="id_sensor" name="id_sensor" class="form-control">
-        <option value="" selected disabled></option>
-        {% for sensor in sensors %}
-            <option value="{{ sensor.id_sensor }}">{{ sensor.name }}</option>
-        {% endfor %}
-    </select>
+        <label for="id_sensor" class="form-label">Selecione o sensor</label>
+        <select id="id_sensor" name="id_sensor" class="form-control">
+            <option value="" select disabled></option>
+            {% for sensor in sensors %}
+                {% if sensor.id_sensor == selected_sensor %}
+                    <option value="{{ sensor.id_sensor }}" selected>{{ sensor.name }}</option>
+                {% else %}
+                    <option value="{{ sensor.id_sensor }}">{{ sensor.name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
     </div>
 </div>
 {% endmacro %}
