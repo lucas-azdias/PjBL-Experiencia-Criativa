@@ -14,7 +14,7 @@
 
     {{ form_macros.formdivrow_start("/<int:id_plant>", "10") }}
 
-    {{ form_macros.form_start("form", "plants_save_changes") }}
+    {{ form_macros.form_start("form", "/plants/save_plant_changes/" + id_plant) }}
 
     {{ form_macros.title(plant.name) }}
 

@@ -1,20 +1,11 @@
 {% import "utils/macros.html" as macros %}
-<<<<<<< HEAD
 
-{% macro input(label='', placeholder='', id='', name='', type='text', extra_params='', value = '',box_size=12, has_box_size=false, is_start=true, is_end=true) %}
-    {% if is_start %}
-    <div class="row my-3 mx-4 justify-content-around">
-    {% endif %}
-        {{ macros.input(label, placeholder, id, name, type, extra_params, value, box_size, has_box_size) }}
-    {% if is_end %}
-=======
 {% macro input(label='', id='', name='', value='', type='text', readonly=false) %}
     <div class="row my-3 mx-4 justify-content-around">
         <div class="col">
             <label for="{{ id }}" class="form-label">{{ label }}</label>
             <input type="{{ type }}" id="{{ id }}" name="{{ name }}" class="form-control" value="{{ value }}" {% if readonly %}readonly{% endif %}>
         </div>
->>>>>>> 49bf17606f24ee1211344eac8fb841bf6ddf42e3
     </div>
 {% endmacro %}
 

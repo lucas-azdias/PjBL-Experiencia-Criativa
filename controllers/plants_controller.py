@@ -45,7 +45,7 @@ def show_plant(id_plant):
 def plants_update_plants(id_plant):
     plant = Plant.get_plant(id_plant)
     sensors = Sensor.get_sensors()
-    return render_template('plants/plants_update_plant.html', plant=plant, sensors=sensors)
+    return render_template('plants/plants_update_plant.html', plant=plant, sensors=sensors, id_plant=str(id_plant))
 
 @plants.route('/save_plant_changes/<int:id_plant>', methods=['POST'])
 def plants_save_changes(id_plant):
@@ -54,12 +54,10 @@ def plants_save_changes(id_plant):
     min_humidity = request.form.get('min_humidity')
 
     # Chame o método update_plant para atualizar as informações da planta
-    if Plant.update_plant(id_plant, name, id_sensor, min_humidity):
-        flash('Planta atualizada com sucesso!', 'success')
-        return redirect(url_for('plants.show_plant', id_plant=id_plant))
-    else:
-        flash('Falha ao atualizar planta. ID da planta não encontrado.', 'error')
-        return redirect(url_for('plants.plants_index'))
+    Plant.update_plant(id_plant, name, id_sensor, min_humidity)
+       
+    return redirect(url_for('plants.plants_index'))
+    
 
 @plants.route('/delete_plant/<id_plant>', methods=['POST','DELETE'])
 def plants_delete_plant(id_plant):

@@ -29,10 +29,10 @@ class Plant(db.Model):
         return plant
     '''
     def update_plant(id_plant, name, id_sensor, min_humidity):
-        plant = Plant.query.get(id_plant)
+        plant = Plant.get_plant(id_plant)
 
         if plant:
-            plant.name = name
+            #plant.name = name
             plant.id_sensor = id_sensor
             plant.min_humidity = min_humidity
             db.session.commit()
