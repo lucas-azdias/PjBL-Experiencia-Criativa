@@ -93,9 +93,7 @@ def admin_payments_manager():
         for i in range(len(users)):
             usernames_options[users[i].username] = f"{users[i].name} ({users[i].username})"
 
-        current_month_year = datetime.today().strftime("%Y-%m")
-
-        return render_template("/admin/admin_payments_manager.html", users_payments_info=users_payments_info, usernames_options=usernames_options, current_month_year=current_month_year)
+        return render_template("/admin/admin_payments_manager.html", users_payments_info=users_payments_info, usernames_options=usernames_options)
     else:
         # Sem permissão necessária
         flash("Sem permissão necessária", "danger")
