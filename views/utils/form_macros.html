@@ -1,6 +1,17 @@
 {% import "utils/macros.html" as macros %}
 
-{% macro input(label='', id='', name='', value='', type='text', readonly=false) %}
+{% macro input(label='', placeholder='', id='', name='', type='text', extra_params='', box_size=12, has_box_size=false, is_start=true,
+is_end=true) %}
+    {% if is_start %}
+    <div class="row my-3 mx-4 justify-content-around">
+        {% endif %}
+        {{ macros.input(label=label, placeholder=placeholder, id=id, name=name, type=type, extra_params=extra_params, box_size=box_size, has_box_size=has_box_size) }}
+        {% if is_end %}
+    </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro other_input(label='', id='', name='', value='', type='text', readonly=false) %}
     <div class="row my-3 mx-4 justify-content-around">
         <div class="col">
             <label for="{{ id }}" class="form-label">{{ label }}</label>

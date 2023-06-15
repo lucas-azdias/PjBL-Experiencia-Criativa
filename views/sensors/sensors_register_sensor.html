@@ -16,11 +16,11 @@
         {{ form_macros.form_start("form", "add_sensor") }}
 
             {{ form_macros.title("Inserir Sensor") }}
-            {{ form_macros.input("Nome do Sensor", id="name", name="name", type="text") }}
-            {{ form_macros.input("Modelo", id="model", name="model", type="text") }}
-            {{ form_macros.input("Marca", id="brand", name="brand", type="text") }}
-            {{ form_macros.input("Unidade", id="measure", name="measure", type="text") }}
-            {{ form_macros.input("Tensao", id="voltage", name="voltage", type="text") }}
+            {{ form_macros.other_input("Nome do Sensor", id="name", name="name", type="text") }}
+            {{ form_macros.other_input("Modelo", id="model", name="model", type="text") }}
+            {{ form_macros.other_input("Marca", id="brand", name="brand", type="text") }}
+            {{ form_macros.other_input("Unidade", id="measure", name="measure", type="text") }}
+            {{ form_macros.other_input("Tensao", id="voltage", name="voltage", type="text") }}
             {{ form_macros.button(label='Criar') }}
 
         {{ form_macros.form_end() }}

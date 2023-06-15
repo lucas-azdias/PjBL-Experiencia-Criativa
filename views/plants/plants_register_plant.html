@@ -17,11 +17,11 @@
         {{ form_macros.form_start("form", "save_plant") }}
 
             {{ form_macros.title("Cadastrar planta") }}
-            {{ form_macros.input("Nome da Planta", id="name", name="name", type="text") }}
+            {{ form_macros.other_input("Nome da Planta", id="name", name="name", type="text") }}
 
             {{ form_macros.render_sensor_select(sensors) }}
     
-            {{ form_macros.input("Umidade mínima", id="min_humidity", name="min_humidity", type="text") }}
+            {{ form_macros.other_input("Umidade mínima", id="min_humidity", name="min_humidity", type="text") }}
 
             {{ form_macros.button(label='Criar') }}
 

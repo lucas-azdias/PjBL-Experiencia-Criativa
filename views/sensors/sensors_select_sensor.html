@@ -15,7 +15,7 @@
 
         {{ form_macros.form_start("form", "select_sensor") }}
             {{ form_macros.title("Atualizar Sensor") }}
-            {{ form_macros.input("Nome do Sensor", id="id_sensor", name="id_sensor", type="text") }}
+            {{ form_macros.other_input("Nome do Sensor", id="id_sensor", name="id_sensor", type="text") }}
             {{ form_macros.button(label='IR') }}
         {{ form_macros.form_end() }}
 

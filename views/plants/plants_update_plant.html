@@ -19,7 +19,7 @@
     {{ form_macros.title(plant.name) }}
 
     {{ form_macros.render_sensor_select(sensors,plant.id_sensor) }}
-    {{ form_macros.input(label='Umidade mínima', id='min_humidity', name='min_humidity', value=plant.min_humidity) }}
+    {{ form_macros.other_input(label='Umidade mínima', id='min_humidity', name='min_humidity', value=plant.min_humidity) }}
 
     {{ form_macros.button(label='Atualizar') }}
 

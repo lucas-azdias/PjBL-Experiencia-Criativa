@@ -59,7 +59,7 @@
           <option value="{{ sensor.id_sensor }}"> {{ sensor.name }}</option>
           {% endfor %}
         </select>
-        {{ form_macros.input("Valor", id="value", name="value", type="number") }}
+        {{ form_macros.other_input("Valor", id="value", name="value", type="number") }}
         <button type="submit">Cadastrar registro</button>
       </form>
 
@@ -74,7 +74,7 @@
               <option value="{{ record.id_record }}"> {{ record.id_record }}</option>
               {% endfor %}
             </select>
-            {{ form_macros.input("Valor", id="value", name="value", type="number") }}
+            {{ form_macros.other_input("Valor", id="value", name="value", type="number") }}
             <button type="submit">Cadastrar registro</button>
           </form>
         {% endif %}

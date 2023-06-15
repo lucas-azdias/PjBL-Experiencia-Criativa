@@ -18,11 +18,11 @@
             {{ form_macros.title("Inserir Sensor") }}
             <label class="form-label">Id do sensor</label>
             <input type="text" name="id_sensor" class="form-control" value="{{sensor.id_sensor}}" readonly="readonly" />
-            {{ form_macros.input("Nome do Sensor", id="name", name="name", type="text" ,value= sensor.name ) }}
-            {{ form_macros.input("Modelo", id="model", name="model", type="text",value= sensor.model ) }}
-            {{ form_macros.input("Marca", id="brand", name="brand", type="text",value= sensor.brand ) }}
-            {{ form_macros.input("Unidade", id="measure", name="measure", type="text",value= sensor.measure ) }}
-            {{ form_macros.input("Tensao", id="voltage", name="voltage", type="text",value= sensor.voltage ) }}
+            {{ form_macros.other_input("Nome do Sensor", id="name", name="name", type="text" ,value= sensor.name ) }}
+            {{ form_macros.other_input("Modelo", id="model", name="model", type="text",value= sensor.model ) }}
+            {{ form_macros.other_input("Marca", id="brand", name="brand", type="text",value= sensor.brand ) }}
+            {{ form_macros.other_input("Unidade", id="measure", name="measure", type="text",value= sensor.measure ) }}
+            {{ form_macros.other_input("Tensao", id="voltage", name="voltage", type="text",value= sensor.voltage ) }}
             {{ form_macros.button(label='Atualizar') }}
         {% endif %}
         {{ form_macros.form_end() }}
